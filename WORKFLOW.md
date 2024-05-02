@@ -12,8 +12,8 @@ flowchart TB;
     I -->|Works| J[Reviewer then commit changes from the Github page and delete];
     I --> M[Reviewer write person about problems and Person to change problems and commit 'git commit -m 'comment on the changes'' and push only these changes];
     J --> K[Reviewer write to chat to pull an update from main branch: git checkout main; git pull; git checkout yourLocal/CurrentBranchName;];
-    K -- |Major Changes| --> L[Update to current state of the main branch: git rebase main];
-    K -- |Not| --> N[End];
+    K -- Major Changes --> L[Update to current state of the main branch: git rebase main];
+    K -- Not --> N[End];
     L --> N;
     M --> G;
     
