@@ -1,7 +1,7 @@
 # Flowchart for Our Workflow on Git
 ```mermaid
 flowchart TB;
-    A[Create your Branch\n and choose a branch name based on your task for it:\n "`_git branch yourBranchName_`"] --> B[Work on your Task];
+    A["`Create your Branch and choose a branch name based on your task for it: _git branch yourBranchName_`"] --> B[Work on your Task];
      B --> C["Add your Changes:\n _git add -A_"];
     C --> D[Commit your Changes:\n _git commit -m 'write a message that describes your work well'_];
     D --> E[Push your changes to your branch: _git push -u origin yourBranchName_];
