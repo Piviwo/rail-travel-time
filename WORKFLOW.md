@@ -9,7 +9,7 @@ flowchart TB;
     F --> G[Reviewer to check the Branch by getting the current state: git fetch origin];
     G --> H[Reviewer go to branch to check: git checkout branchName];
     H --> I[Reviewer runs branch and sees if everthing works];
-    I -- |Works| --> J[Reviewer then commit changes from the Github page and delete] & I -- Not --> M[Reviewer write person about problems and Person to change problems and commit (git commit -m 'comment on the changes') and push (only these changes)];
+    I -- |Works| --> J[Reviewer then commit changes from the Github page and delete]
     J --> K[Reviewer write to chat to pull an update from main branch: git checkout main; git pull; git checkout yourLocal/CurrentBranchName;];
     K -- |Major Changes| --> L[Update to current state of the main branch: git rebase main];
     K -- |Not| --> N[End];
