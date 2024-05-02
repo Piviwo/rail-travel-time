@@ -1,5 +1,6 @@
 # Flowchart for Our Workflow on Git
 ```mermaid
+%%{init: {"flowchart": {"htmlLabels": false}} }%%
 flowchart TB;
     A["`Create your Branch and choose a branch name based on your task for it: _git branch yourBranchName_`"] --> B[Work on your Task];
      B --> C["Add your Changes:\n _git add -A_"];
