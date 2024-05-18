@@ -6,8 +6,6 @@ import { Navigation } from "../navigation/navigation";
 
 export const MapContainer = () => {
   return (
-    <>
-      <Navigation></Navigation>
       <Map
         mapLib={maplibre}
         initialViewState={{
@@ -18,6 +16,5 @@ export const MapContainer = () => {
         style={{ width: "100vw", height: "100vh" }}
         mapStyle={import.meta.env.VITE_API_KEY}
       ></Map>
-    </>
   );
 };

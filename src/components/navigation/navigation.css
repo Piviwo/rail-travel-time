@@ -1,25 +1,52 @@
-.navBar {
+.topNavBar {
     background-color: #333;
     padding: 10px 20px;
-  }
-  
-  .navList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.burgerMenu {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    z-index: 10;
+}
+
+.topNavList {
     list-style: none;
     display: flex;
-    justify-content: space-around;
     margin: 0;
     padding: 0;
-  }
-  
-  .navLink {
+}
+
+.topNavItem {
+    margin-left: 20px;
+}
+
+.topNavLink {
     color: white;
     text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s;
-  }
-  
-  .navLink:hover {
+    padding: 10px;
+}
+
+.topNavLink:hover {
     color: white;
     background-color: #575757;
     border-radius: 4px;
-  }
+}
+
+.sideNavContainer {
+    position: fixed;
+    left: 0;
+    top: 56px;
+    z-index:10;
+    width: 0;
+    height: 100%;
+    background-color: #333;
+    transition: width 0.8s;
+}
+
+.sideNavContainer.open {
+    width: 300px;
+}
