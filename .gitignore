@@ -24,3 +24,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# gitignore for ipython notebook checkpoints:
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
