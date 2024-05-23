@@ -1,5 +1,5 @@
 .topNavBar {
-    background-color: #333;
+    background-color: #2A2B40;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -28,11 +28,12 @@
     color: white;
     text-decoration: none;
     padding: 10px;
+    transition: all 0.3s ease;
 }
 
 .topNavLink:hover {
-    color: white;
-    background-color: #575757;
+    color: #2A2B40;
+    background-color: #C9EEF2;
     border-radius: 4px;
 }
 
@@ -43,10 +44,25 @@
     z-index:10;
     width: 0;
     height: 100%;
-    background-color: #333;
-    transition: width 0.8s;
+    background-color: #29C7D9;
+    visibility: hidden;
+    transition: width 0.8s, visibility 0.6s ease;
 }
 
 .sideNavContainer.open {
-    width: 300px;
+    width: 30%;
+    visibility: visible;
+}
+
+
+
+.selectionContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.selectItem{
+    height:35px;
 }
