@@ -1,8 +1,13 @@
 import "./App.css";
-import { MapContainer } from "./components";
+import { MapContainer, Navigation } from "./components";
 
 function App() {
-  return <MapContainer />;
-}
+  return (
+    <div className="appContainer">
+      <Navigation />
+      <MapContainer />
+    </div>
+  );
+};
 
 export default App;
