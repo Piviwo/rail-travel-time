@@ -1,6 +1,5 @@
 import "./App.css";
-import { MapContainer } from "./components";
-import { Navigation } from "./components/navigation/navigation";
+import { MapContainer, Navigation } from "./components";
 
 function App() {
   return (

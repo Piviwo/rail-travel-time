@@ -2,7 +2,6 @@ import "./map.css";
 import Map from "react-map-gl";
 import maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { Navigation } from "../navigation/navigation";
 
 export const MapContainer = () => {
   return (

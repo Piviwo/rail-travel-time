@@ -25,6 +25,10 @@ export const Navigation = () => {
         <div className="selectionContainer">
           <h2>select your travel route</h2>
           <div>
+            <p>mode</p>
+            {/* radio button  */}
+          </div>          
+          <div>
             <p>from</p>
             <select className="selectItem">
               <option>city</option>
@@ -38,6 +42,9 @@ export const Navigation = () => {
               {/* to do: liste */}
             </select>
           </div>
+          {/* {two cities: average travel time} */}
+          {/*timetable within next hour: city, current time, gives trainnumber, final dest, highlight the cities */}
+          
         </div>
       </div>
     </div>
