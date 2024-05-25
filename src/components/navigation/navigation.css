@@ -1,68 +1,75 @@
 .topNavBar {
-    background-color: #2A2B40;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: #2a2b40;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .burgerMenu {
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-    z-index: 10;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  z-index: 10;
 }
 
 .topNavList {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
 .topNavItem {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .topNavLink {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    transition: all 0.3s ease;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  transition: all 0.3s ease;
 }
 
 .topNavLink:hover {
-    color: #2A2B40;
-    background-color: #C9EEF2;
-    border-radius: 4px;
+  color: #2a2b40;
+  background-color: #c9eef2;
+  border-radius: 4px;
 }
 
 .sideNavContainer {
-    position: fixed;
-    left: 0;
-    top: 56px;
-    z-index:10;
-    width: 0;
-    height: 100%;
-    background-color: #29C7D9;
-    visibility: hidden;
-    transition: width 0.8s, visibility 0.6s ease;
+  position: fixed;
+  left: 0;
+  top: 56px;
+  z-index: 10;
+  width: 0;
+  height: 100%;
+  background-color: #29c7d9;
+  visibility: hidden;
+  transition: width 0.8s, visibility 0.6s ease;
 }
 
 .sideNavContainer.open {
-    width: 30%;
-    visibility: visible;
+  width: 30%;
+  visibility: visible;
 }
 
-
-
-.selectionContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
+.selectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
 }
 
-.selectItem{
-    height:35px;
+.selectItem {
+  height: 35px;
+}
+
+.infoButton {
+  background-color: none;
+}
+
+.infoButton:hover {
+  cursor: pointer;
 }
