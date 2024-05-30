@@ -1,2 +1,3 @@
-export { MapContainer } from "./map/";
-export { Navigation } from "./navigation/";
+export { MapContainer } from "./map";
+export { Navigation, Header } from "./navigation";
+export { InfoContent } from "./infoContent";
