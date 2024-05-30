@@ -12,7 +12,7 @@ export const MapContainer = () => {
           longitude: 20,
           zoom: 3.5,
         }}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100vw", height: "93vh" }}
         mapStyle={import.meta.env.VITE_API_KEY}
       ></Map>
   );

@@ -45,7 +45,7 @@
 .sideNavContainer {
   position: fixed;
   left: 0;
-  top: 51.5px;
+  top: 7vh;
   z-index: 10;
   width: 0;
   height: 100%;
