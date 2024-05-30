@@ -5,7 +5,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import "./navigation.css";
 
 export const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,21 +21,11 @@ export const Navigation = () => {
             {isMenuOpen ? "✖" : "☰"}
           </div>
           <ul className="topNavList">
-            <li className="topNavItem">
+            {/* <li className="topNavItem">
               <a href="" className="topNavLink">
                 home
               </a>
-            </li>
-            <li className="topNavItem">
-              <a href="" className="topNavLink">
-                about
-              </a>
-            </li>
-            <li className="topNavItem">
-              <a href="" className="topNavLink">
-                contact
-              </a>
-            </li>
+            </li> */}
             <li className="topNavItem">
               <InfoCircleOutlined
                 className="topNavLink infoButton"

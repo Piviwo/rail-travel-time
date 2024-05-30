@@ -1,0 +1,3 @@
+.maplibregl-map{
+    height:calc(100% - 7vh);
+}
