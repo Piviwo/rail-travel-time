@@ -1,4 +1,3 @@
-import "./map.css";
 import Map from "react-map-gl";
 import maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
