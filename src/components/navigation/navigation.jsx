@@ -21,11 +21,11 @@ export const Navigation = () => {
             {isMenuOpen ? "✖" : "☰"}
           </div>
           <ul className="topNavList">
-            {/* <li className="topNavItem">
+            <li className="topNavItem">
               <a href="" className="topNavLink">
-                home
+                infos
               </a>
-            </li> */}
+            </li>
             <li className="topNavItem">
               <InfoCircleOutlined
                 className="topNavLink infoButton"
