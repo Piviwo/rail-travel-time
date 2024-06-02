@@ -1,6 +1,7 @@
 import axios from "axios";
 import convert from "xml-js";
 
+
 export const getEVAbyName = async (stationName) => {
   const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/${stationName}`;
   const headers = {
@@ -8,6 +9,7 @@ export const getEVAbyName = async (stationName) => {
     "DB-Api-Key": import.meta.env.DB_API_KEY,
     accept: "application/vnd.de.db.ris+json",
   };
+  
 
   try {
     const response = await axios.get(url, { headers });
@@ -66,6 +68,8 @@ export const getTimeTable = async (stationName) => {
   }
 };
 
+const isAlpha = str => /^[a-zA-Z]*$/.test(str);
+
 export const getFinalData = async (stationName) => {
   const finalData = await getTimeTable(stationName);
 
@@ -85,16 +89,80 @@ export const getFinalData = async (stationName) => {
   console.log(dataJson);
 
   const finalStructuredData = dataJson.map((element) => {
-    return {
-      trainType: element.tl._attributes.c,
-      trainNumber: element.tl._attributes.n,
-      trainStatus: element.tl._attributes.t,
-      arCheck: element.ar,
-      dpCheck: element.dp,
-
-      //   trainLabel: element.dp._attributes.l,
-      //   trainPath: element.dp._attributes.ppth,
+    // define all attributes that are there always:
+    const trainType= element.tl._attributes.c;
+    const trainStatus=element.tl._attributes.t;
+    // check if IC/ICE for train number
+    if(element.tl._attributes.c.isInList('IC','ICE')){
+      // trainNumber is number to be displayed on timetable
+      const trainNumber = trainType + element.tl._attributes.n;
+    }
+    // check if dp or ar exist and give origin and destination paths:
+    if(element.dp){
+      // define label and path
+      const trainLabel= element.dp._attributes.l;
+      const trainPath = element.dp._attributes.ppth.split("|");
+      // define train Number based on other facts:
+      if(!trainNumber){
+        if(Number.isNaN(trainLabel )){
+          const trainNumber = trainType;
+        } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
+          const trainNumber = trainLabel;
+        }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
+          const trainNumber = trainType + trainLabel;
+        }else{
+          const trainNumber = NaN;
+        }
+      }
+      if(element.ar){
+        // return if ar and dp exist:
+        const trainOrigin = element.ar._attributes.ppth.split("|");
+        return {
+          trainType,
+          trainNumber,
+          trainStatus,
+          trainLabel,
+          trainPath,
+          trainEnd: trainPath[trainPath.length-1],
+          trainOrigin,
+          trainStart: trainOrigin[0],
+        };
+      }
+      // return if only dp exists:
+      return {
+        trainType,
+        trainNumber,
+        trainStatus,
+        trainLabel,
+        trainPath,
+        trainEnd: trainPath[trainPath.length-1],x
+      };
+    }else if(element.ar){
+      const trainLabel=element.ar._attributes.l;
+      const trainOrigin = element.ar._attributes.ppth.split("|");
+      // determine train number:
+      if(!trainNumber){
+        if(Number.isNaN(trainLabel )){
+          const trainNumber = trainType;
+        } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
+          const trainNumber = trainLabel;
+        }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
+          const trainNumber = trainType + trainLabel;
+        }else{
+          const trainNumber = NaN;
+        }
+      }
+      // return if only ar exists:
+      return {
+        trainType,
+        trainNumber,
+        trainStatus,
+        trainLabel,
+        trainOrigin,
+        trainStart: trainOrigin[0],
+      };
     };
+    
   });
 
   console.log(finalStructuredData);
