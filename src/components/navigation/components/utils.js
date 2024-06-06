@@ -50,7 +50,7 @@ export const getTimeTable = async (stationName) => {
   const headers = {
     "DB-Client-ID": import.meta.env.DB_API_ID,
     "DB-Api-Key": import.meta.env.DB_API_KEY,
-    accept: "application/json",
+    accept: "application/vnd.de.db.ris+json",
   };
 
   try {
@@ -92,10 +92,11 @@ export const getFinalData = async (stationName) => {
     // define all attributes that are there always:
     const trainType= element.tl._attributes.c;
     const trainStatus=element.tl._attributes.t;
+    let trainNumber = NaN;
     // check if IC/ICE for train number
-    if(element.tl._attributes.c.isInList('IC','ICE')){
+    if(element.tl._attributes.c=='IC' || element.tl._attributes.c=='ICE'){
       // trainNumber is number to be displayed on timetable
-      const trainNumber = trainType + element.tl._attributes.n;
+      trainNumber = trainType + element.tl._attributes.n;
     }
     // check if dp or ar exist and give origin and destination paths:
     if(element.dp){
@@ -105,13 +106,11 @@ export const getFinalData = async (stationName) => {
       // define train Number based on other facts:
       if(!trainNumber){
         if(Number.isNaN(trainLabel )){
-          const trainNumber = trainType;
+          trainNumber = trainType;
         } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
-          const trainNumber = trainLabel;
+          trainNumber = trainLabel;
         }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
-          const trainNumber = trainType + trainLabel;
-        }else{
-          const trainNumber = NaN;
+          trainNumber = trainType + trainLabel;
         }
       }
       if(element.ar){
@@ -135,7 +134,7 @@ export const getFinalData = async (stationName) => {
         trainStatus,
         trainLabel,
         trainPath,
-        trainEnd: trainPath[trainPath.length-1],x
+        trainEnd: trainPath[trainPath.length-1],
       };
     }else if(element.ar){
       const trainLabel=element.ar._attributes.l;
@@ -143,13 +142,11 @@ export const getFinalData = async (stationName) => {
       // determine train number:
       if(!trainNumber){
         if(Number.isNaN(trainLabel )){
-          const trainNumber = trainType;
+          trainNumber = trainType;
         } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
-          const trainNumber = trainLabel;
+          trainNumber = trainLabel;
         }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
-          const trainNumber = trainType + trainLabel;
-        }else{
-          const trainNumber = NaN;
+          trainNumber = trainType + trainLabel;
         }
       }
       // return if only ar exists:
