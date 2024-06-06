@@ -1,0 +1,29 @@
+svg:hover #svg-steam{
+  fill-opacity:1;
+  stroke-opacity:1;
+}
+
+
+
+.train {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 70.68px;
+    height: 60px;
+    offset-path: inset(15% 8% 10% 35%);
+    
+  animation: move 60s  infinite ;
+}
+
+
+
+  @keyframes move {
+    0% {
+      offset-distance: 0%;
+    }
+    100% {
+      offset-distance: 100%;
+    }
+  }
+  
