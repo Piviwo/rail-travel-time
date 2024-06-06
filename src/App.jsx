@@ -4,14 +4,14 @@ import { InfoPage, MapPage } from "./pages";
 
 function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <div className="appContainer">
+    <div className="appContainer">
+      <HashRouter>
+        <Routes>
           <Route path="/" element={<MapPage />} />
           <Route path="/info" element={<InfoPage />} />
-        </div>
-      </Routes>
-    </HashRouter>
+        </Routes>
+      </HashRouter>
+    </div>
   );
 }
 
