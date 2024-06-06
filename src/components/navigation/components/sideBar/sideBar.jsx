@@ -1,17 +1,26 @@
 import PropTypes from "prop-types";
 import "./sideBar.css";
+import { useState } from "react";
+import { SideContent } from "./sideContent";
+
 
 export const SideBar = ({ isMenuOpen }) => {
+
+  const [content, setContent] = useState('averagetimes');
+  const handleChange = (event) => {
+    setContent(event.target.value);
+  };
+
   return (
     <div className={`sideNavContainer ${isMenuOpen ? "open" : ""}`}>
     <div className="contentContainer">
       <h2>select your travel route</h2>
       <div className="radioContainer">
         <label>
-          <input type="radio" value="average-times" name="radioGroup" defaultChecked/> average times
+          <input type="radio" value="averagetimes" name="radioGroup" defaultChecked onChange={handleChange}/> average times
         </label>
         <label>
-          <input type="radio" value="timetable" name="radioGroup" /> time table
+          <input type="radio" value="timetable" name="radioGroup" onChange={handleChange}/> time table
         </label>
       </div> 
       <div className="selectContainer">
@@ -35,8 +44,7 @@ export const SideBar = ({ isMenuOpen }) => {
           <option>city 3</option>
         </select>
       </div>
-      {/* {two cities: average travel time} */}
-      {/*timetable within next hour: city, current time, gives trainnumber, final dest, highlight the cities */}
+      <SideContent content={content} />
     </div>
   </div>
   );
