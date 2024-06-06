@@ -16,7 +16,14 @@
   visibility: visible;
 }
 
-.selectionContainer {
+.radioContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap:2vw;
+}
+
+.contentContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -24,6 +31,29 @@
   height: 100%;
 }
 
+.selectContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
 .selectItem {
-  height: 35px;
+  height: 30px;
+  background-color: #2a2b40;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.infoButton {
+  background-color: none;
+}
+
+.infoButton:hover {
+  cursor: pointer;
 }
