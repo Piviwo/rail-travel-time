@@ -6,7 +6,7 @@
   z-index: 10;
   width: 0;
   height: 100vh;
-  background-color: #29c7d9;
+  background-color: #87ced6;
   visibility: hidden;
   transition: width 0.8s, visibility 0.6s ease;
 }

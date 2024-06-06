@@ -11,6 +11,16 @@ export const SideBar = ({ isMenuOpen }) => {
     setContent(event.target.value);
   };
 
+  const [selectedFrom, setSelectedFrom] = useState('');
+  const [selectedTo, setSelectedTo] = useState('');
+  const handleFromChange = (event) => {
+    setSelectedFrom(event.target.value);
+  };
+
+  const handleToChange = (event) => {
+    setSelectedTo(event.target.value);
+  };
+
   return (
     <div className={`sideNavContainer ${isMenuOpen ? "open" : ""}`}>
     <div className="contentContainer">
@@ -25,7 +35,7 @@ export const SideBar = ({ isMenuOpen }) => {
       </div> 
       <div className="selectContainer">
         <p>from</p>
-        <select className="selectItem">
+        <select className="selectItem" onChange={handleFromChange}>
           {/* to do: list */}
           <option>city</option>
           <option>city 1</option>
@@ -36,7 +46,7 @@ export const SideBar = ({ isMenuOpen }) => {
       </div>
       <div className="selectContainer">
         <p>to</p>
-        <select className="selectItem">
+        <select className="selectItem" onChange={handleToChange}>
           {/* to do: list */}
           <option>city</option>
           <option>city 1</option>
