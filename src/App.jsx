@@ -1,33 +1,17 @@
-import {
-  // HashRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { InfoPage, MapPage } from "./pages";
 
 function App() {
   return (
-    // <HashRouter>
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="appContainer">
-            <MapPage />
-          </div>
-        }
-      />
-      <Route
-        path="/info"
-        element={
-          <div className="appContainer">
-            <InfoPage />
-          </div>
-        }
-      />
-    </Routes>
-    // </HashRouter>
+    <HashRouter>
+      <Routes>
+        <div className="appContainer">
+          <Route path="/" element={<MapPage />} />
+          <Route path="/info" element={<InfoPage />} />
+        </div>
+      </Routes>
+    </HashRouter>
   );
 }
 
