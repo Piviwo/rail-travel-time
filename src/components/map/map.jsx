@@ -19,7 +19,12 @@ export const MapContainer = () => {
   const mapRef = useRef();
 
   useEffect(() => {
-    if (coordinates && coordinates[0] && coordinates[1]) {
+    if (
+      coordinates &&
+      coordinates[0] &&
+      coordinates[1] &&
+      mapRef?.current != null
+    ) {
       const minLat = Math.min(coordinates[0].latitude, coordinates[1].latitude);
       const maxLat = Math.max(coordinates[0].latitude, coordinates[1].latitude);
       const minLng = Math.min(
@@ -31,26 +36,28 @@ export const MapContainer = () => {
         coordinates[1].longitude
       );
 
-      mapRef.current.fitBounds(
-        [
-          [minLng, minLat],
-          [maxLng, maxLat],
-        ],
-        {
-          padding: {
-            top: 200,
-            bottom: 100,
-            left: 500,
-            right: 100,
-          },
-          duration: 1000,
-        }
-      );
+      if (minLng && minLat && maxLng && maxLat) {
+        mapRef?.current.fitBounds(
+          [
+            [minLng, minLat],
+            [maxLng, maxLat],
+          ],
+          {
+            padding: {
+              top: 200,
+              bottom: 100,
+              left: 500,
+              right: 100,
+            },
+            duration: 1000,
+          }
+        );
+      }
     }
   }, [coordinates]);
 
   useEffect(() => {
-    if (filteredCities) {
+    if (filteredCities && mapRef?.current != null) {
       const minMaxLatLon = filteredCities.reduce(
         (acc, city) => {
           return {
@@ -72,9 +79,8 @@ export const MapContainer = () => {
         [minMaxLatLon.minLongitude, minMaxLatLon.minLatitude],
         [minMaxLatLon.maxLongitude, minMaxLatLon.maxLatitude],
       ];
-      console.log(bounds);
 
-      mapRef.current.fitBounds(bounds, {
+      mapRef?.current.fitBounds(bounds, {
         padding: {
           top: 200,
           bottom: 100,

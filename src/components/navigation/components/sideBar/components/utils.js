@@ -50,9 +50,6 @@ export const parseCSV = (file) => {
       "Rotterdam",
       "Krakow",
     ],
-    // complete: function (results, file) {
-    //   console.log("parsing complete read", count, "records.");
-    // },
     complete: function (results) {
       console.log(results);
     },

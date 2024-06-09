@@ -18,7 +18,6 @@ export const SelectCity = () => {
   const handleCityChange = (e) => {
     dispatch(setSelectedCity(e.target.value));
     dispatch(setFilteredCities([]));
-    console.log(e.target.value);
   };
 
   const handleTimeChange = (value) => {
@@ -36,7 +35,6 @@ export const SelectCity = () => {
             2;
           return travelTime <= travelTimeLimit;
         });
-        console.log(filtered);
         dispatch(setFilteredCities(filtered));
       }
     }
