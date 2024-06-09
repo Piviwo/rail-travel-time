@@ -1,3 +1,4 @@
+import React, { useRef, useEffect, useMemo } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -6,27 +7,135 @@ import {
   getCoordinates,
   getSelectedCity,
   getFilteredCities,
+  getMode,
 } from "../../app/app-selectors";
-import { useEffect } from "react";
 import citiesData from "../../data/RailTimeTable.json";
 
 export const MapContainer = () => {
   const coordinates = useSelector(getCoordinates);
   const selectedCity = useSelector(getSelectedCity);
+  const mode = useSelector(getMode);
   const filteredCities = useSelector(getFilteredCities);
+  const mapRef = useRef();
 
   useEffect(() => {
-    console.log(coordinates);
+    if (coordinates && coordinates[0] && coordinates[1]) {
+      const minLat = Math.min(coordinates[0].latitude, coordinates[1].latitude);
+      const maxLat = Math.max(coordinates[0].latitude, coordinates[1].latitude);
+      const minLng = Math.min(
+        coordinates[0].longitude,
+        coordinates[1].longitude
+      );
+      const maxLng = Math.max(
+        coordinates[0].longitude,
+        coordinates[1].longitude
+      );
+
+      mapRef.current.fitBounds(
+        [
+          [minLng, minLat],
+          [maxLng, maxLat],
+        ],
+        {
+          padding: {
+            top: 200,
+            bottom: 100,
+            left: 500,
+            right: 100,
+          },
+          duration: 1000,
+        }
+      );
+    }
   }, [coordinates]);
 
-  const getLineColor = (time) => {
-    if (time <= 10) return "#00FF00";
-    if (time <= 20) return "#FFFF00";
-    return "#FF0000";
-  };
+  useEffect(() => {
+    if (filteredCities) {
+      const minMaxLatLon = filteredCities.reduce(
+        (acc, city) => {
+          return {
+            minLatitude: Math.min(acc.minLatitude, city.Latitude),
+            maxLatitude: Math.max(acc.maxLatitude, city.Latitude),
+            minLongitude: Math.min(acc.minLongitude, city.Longitude),
+            maxLongitude: Math.max(acc.maxLongitude, city.Longitude),
+          };
+        },
+        {
+          minLatitude: 90,
+          maxLatitude: -90,
+          minLongitude: 90,
+          maxLongitude: -90,
+        }
+      );
+
+      const bounds = [
+        [minMaxLatLon.minLongitude, minMaxLatLon.minLatitude],
+        [minMaxLatLon.maxLongitude, minMaxLatLon.maxLatitude],
+      ];
+      console.log(bounds);
+
+      mapRef.current.fitBounds(bounds, {
+        padding: {
+          top: 200,
+          bottom: 100,
+          left: 500,
+          right: 100,
+        },
+        duration: 1000,
+      });
+    }
+  }, [filteredCities]);
+
+  const routesFromCity = useMemo(() => {
+    const routesToDraw =
+      selectedCity &&
+      mode === "averageTo" &&
+      filteredCities?.map((city) => {
+        const cityData = citiesData?.find((c) => c.City === selectedCity);
+        const sourceData = {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [cityData.Longitude, cityData.Latitude],
+              [city.Longitude, city.Latitude],
+            ],
+          },
+        };
+
+        return (
+          <React.Fragment key={city.City}>
+            <Marker
+              latitude={city.Latitude}
+              longitude={city.Longitude}
+              color="#87ced6"
+            />
+            <Source id={`route-${city.City}`} type="geojson" data={sourceData}>
+              <Layer
+                id={`route-line-${city.City}`}
+                type="line"
+                source={`route-${city.City}`}
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "gray",
+                  "line-width": 4,
+                }}
+              />
+            </Source>
+          </React.Fragment>
+        );
+      });
+
+    return routesToDraw;
+  }, [filteredCities, mode, selectedCity]);
 
   return (
     <Map
+      ref={mapRef}
       mapLib={maplibre}
       initialViewState={{
         latitude: 55,
@@ -36,7 +145,7 @@ export const MapContainer = () => {
       style={{ width: "100vw", height: "100vh" }}
       mapStyle={import.meta.env.VITE_API_KEY}
     >
-      {coordinates?.length === 2 && (
+      {coordinates?.length === 2 && mode == "averageBetween" && (
         <>
           <Marker
             latitude={coordinates[0].latitude}
@@ -78,53 +187,7 @@ export const MapContainer = () => {
         </>
       )}
 
-      {selectedCity &&
-        filteredCities.map((city) => {
-          const cityData = citiesData?.find((c) => c.City === selectedCity);
-          const travelTime =
-            (parseFloat(cityData[city.City]) +
-              parseFloat(city[cityData.City])) /
-            2;
-          return (
-            <>
-              <Marker
-                key={city.City}
-                latitude={city.Latitude}
-                longitude={city.Longitude}
-                color="blue"
-              />
-              <Source
-                id={`route-${city.City}`}
-                type="geojson"
-                data={{
-                  type: "Feature",
-                  properties: {},
-                  geometry: {
-                    type: "LineString",
-                    coordinates: [
-                      [cityData.Longitude, cityData.Latitude],
-                      [city.Longitude, city.Latitude],
-                    ],
-                  },
-                }}
-              >
-                <Layer
-                  id={`route-line-${city.City}`}
-                  type="line"
-                  source={`route-${city.City}`}
-                  layout={{
-                    "line-join": "round",
-                    "line-cap": "round",
-                  }}
-                  paint={{
-                    "line-color": getLineColor(travelTime),
-                    "line-width": 4,
-                  }}
-                />
-              </Source>
-            </>
-          );
-        })}
+      {routesFromCity}
     </Map>
   );
 };

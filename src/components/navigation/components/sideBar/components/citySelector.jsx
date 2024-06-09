@@ -7,12 +7,13 @@ import {
 } from "../../../../../app/app-actions";
 import { getSelectedCity } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
+import { InputNumber } from "antd";
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
 
-  const [travelTimeLimit, setTravelTimeLimit] = useState("");
+  const [travelTimeLimit, setTravelTimeLimit] = useState(5);
 
   const handleCityChange = (e) => {
     dispatch(setSelectedCity(e.target.value));
@@ -20,8 +21,8 @@ export const SelectCity = () => {
     console.log(e.target.value);
   };
 
-  const handleTimeChange = (e) => {
-    setTravelTimeLimit(e.target.value);
+  const handleTimeChange = (value) => {
+    setTravelTimeLimit(value);
   };
 
   useEffect(() => {
@@ -35,34 +36,40 @@ export const SelectCity = () => {
             2;
           return travelTime <= travelTimeLimit;
         });
-        dispatch(setFilteredCities(filtered));
         console.log(filtered);
+        dispatch(setFilteredCities(filtered));
       }
     }
   }, [dispatch, selectedCity, travelTimeLimit]);
 
   return (
-    <div className="selectors">
-      <label>
-        Select City:
-        <select value={selectedCity} onChange={handleCityChange}>
-          <option value="">Select a city</option>
+    <div className="row">
+      <div className="label">
+        <span>from</span>
+        <select
+          value={selectedCity}
+          onChange={handleCityChange}
+          className="selectItem"
+        >
           {citiesData?.map((city) => (
             <option key={city.City} value={city.City}>
               {city.City}
             </option>
           ))}
         </select>
-      </label>
-
-      <label>
-        Travel Time Limit (hours):
-        <input
+      </div>
+      <div className="label">
+        <span>in</span>
+        <InputNumber
           type="number"
           value={travelTimeLimit}
           onChange={handleTimeChange}
+          addonAfter={"hours"}
+          minValue={1}
+          maxValue={100}
+          className="inputNumber"
         />
-      </label>
+      </div>
     </div>
   );
 };

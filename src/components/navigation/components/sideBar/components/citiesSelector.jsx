@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux";
 import { setCoordinates } from "../../../../../app/app-actions";
 import citiesData from "../../../../../data/RailTimeTable.json";
 import "./citiesSelector.css";
+import { Button } from "antd";
 
 export const SelectCities = () => {
-  const [city1, setCity1] = useState("");
-  const [city2, setCity2] = useState("");
+  const [city1, setCity1] = useState("Vienna");
+  const [city2, setCity2] = useState("Berlin");
   const [averageTime, setAverageTime] = useState(null);
 
   const dispatch = useDispatch();
@@ -48,35 +49,56 @@ export const SelectCities = () => {
 
   return (
     <div className="selectors">
-      <label>
+      <label className="selectContainer">
         <p>from</p>
-        <select value={city1} onChange={handleCity1Change}>
-          <option value="">Select a city</option>
+        <select
+          value={city1}
+          onChange={handleCity1Change}
+          className="selectItem"
+        >
           {citiesData?.map((city) => (
-            <option key={city.City} value={city.City}>
+            <option
+              key={city.City}
+              value={city.City}
+              disabled={city.City == city2}
+            >
               {city.City}
             </option>
           ))}
         </select>
       </label>
-      <label>
+      <label className="selectContainer">
         <p>to</p>
-        <select value={city2} onChange={handleCity2Change}>
-          <option value="">Select a city</option>
+        <select
+          value={city2}
+          onChange={handleCity2Change}
+          className="selectItem"
+        >
           {citiesData?.map((city) => (
-            <option key={city.City} value={city.City}>
+            <option
+              key={city.City}
+              value={city.City}
+              disabled={city.City == city1}
+            >
               {city.City}
             </option>
           ))}
         </select>
       </label>
 
-      <button onClick={getAverageTime} className="button">
+      <Button
+        onClick={getAverageTime}
+        className="button"
+        disabled={!city1 || !city2}
+      >
         Get Time
-      </button>
+      </Button>
       {averageTime !== null && (
-        <div>
-          <h2>Average Time: {averageTime} hours</h2>
+        <div className="timeInfo">
+          <span>Average Time:</span>
+          <div className="time">
+            <span>{averageTime}</span> hours
+          </div>
         </div>
       )}
     </div>

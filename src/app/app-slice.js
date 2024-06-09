@@ -3,9 +3,13 @@ import {
   setCoordinates,
   setFilteredCities,
   setSelectedCity,
+  setMode,
 } from "./app-actions";
 
-const initialState = {};
+const initialState = {
+  mode: "averageBetween",
+  selectedCity: "Vienna",
+};
 
 export const appSlice = createSlice({
   name: "appState",
@@ -23,6 +27,10 @@ export const appSlice = createSlice({
     builder.addCase(setFilteredCities, (state, action) => ({
       ...state,
       filteredCities: action.payload,
+    }));
+    builder.addCase(setMode, (state, action) => ({
+      ...state,
+      mode: action.payload,
     }));
   },
 });

@@ -20,3 +20,7 @@ export const setFilteredCities = createAction(
     payload,
   })
 );
+
+export const setMode = createAction(`appState/setMode`, (payload) => ({
+  payload,
+}));
