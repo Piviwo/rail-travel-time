@@ -117,7 +117,9 @@ export const InfoContent = () => {
       </h2>
 
       <div className="image-text-container1">
-        <img src={firstRailway} alt="First railway in Europe" />
+
+        <img src={firstRailway} alt="First railway in Europe" class="img"/>
+
 
         <div className="text-content1">
           <h3>The Beginnings:</h3>
@@ -199,18 +201,34 @@ export const InfoContent = () => {
           </p>
         </div>
 
-        <img src={electrification} alt="First railway in Europe" />
+<img src={electrification} alt="First railway in Europe" class="img" />
+         
       </div>
 
-      <div>
-        {/* Benefits Section */}
-        <h3>Why Choose Train Travel Across Europe?</h3>
-        <p>
-          Train travel offers a more eco-friendly alternative to air travel.
-          It's also a comfortable and scenic way to explore Europe, allowing you
-          to witness diverse landscapes as you journey between destinations.
-        </p>
-      </div>
+
+     <div>
+      {/* Benefits Section */}
+      <h3>Why Choose Train Travel Across Europe?</h3>
+      <p>
+        Train travel offers a more eco-friendly alternative to air travel. It's
+        also a comfortable and scenic way to explore Europe, allowing you to
+        witness diverse landscapes as you journey between destinations. Rail transportation 
+        emits about 0.2 pounds of greenhouse gases per passenger mile (55 g/km) when each 
+        car is filled with 50 passengers. This figure increases to about 0.5 pounds per passenger 
+        mile (140 g/km) when only filled with half that amount. These numbers are still much lower 
+        than those of Jet transportation, about 1 pound per passenger mile (280 g/km), and that of 
+        a solo car driver, about 1.15 pounds per passenger mile (325 g/km). Even the fuel efficient 
+        Prius emits more greenhouse gases per passenger mile. Estimates have shown that if just 
+        10% of long-distance freight that is currently moving by truck were to be moved instead 
+        by diesel trains, the resulting carbon emission reduction would be the equivalent of taking 
+        2 million cars off the road. The results are more dramatic when the diesel train figures are 
+        replaced by hybrid and electric train figures. 
+        <br></br>
+        <span class="sourcetext">(Retrieved on 10.6.2024 from https://en.wikipedia.org/wiki/Environmental_design_in_rail_transportation. License: CC BY-SA 4.0)</span>
+      </p>
+      </div> 
+      
+
     </div>
   );
 };
