@@ -21,10 +21,11 @@
 }
 
 .round-image {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid #2a2b40;
 }
 
 .caption {
