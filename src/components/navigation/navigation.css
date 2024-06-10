@@ -77,4 +77,10 @@
 
 .homeLink.active{
   text-decoration: none;
+.closeIcon {
+  width: 20px;
+}
+
+.closeIcon:hover {
+  opacity: 0.8;
 }
