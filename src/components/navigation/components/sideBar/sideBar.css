@@ -48,7 +48,6 @@
   cursor: pointer;
 }
 
-.radioButton{
-  color: #2a2b40;
-  font-weight: bold;
+.ant-radio-button-wrapper-checked {
+  font-weight: 600 !important;
 }

@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { InfoModal } from "./components/infoModal";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+
 import "./navigation.css";
 
 export const Header = ({ toggleMenu, isMenuOpen }) => {
@@ -12,16 +14,13 @@ export const Header = ({ toggleMenu, isMenuOpen }) => {
     <>
       <div className="header">
         <nav className="topNavBar">
-        <div className="topLeftNav">
-            {typeof isMenuOpen !== "undefined" ? (
-              <div className="burgerMenu" onClick={toggleMenu}>
-                {isMenuOpen ? "✖" : "☰"}
-              </div>
-            ) : (
-              <div></div>
-            )}
-            <NavLink to="/" className="topNavLink homeLink">Rail Travel Time</NavLink>
-          </div>
+          {typeof isMenuOpen !== "undefined" ? (
+            <div className="burgerMenu" onClick={toggleMenu}>
+              {isMenuOpen ? <CloseOutlined className="closeIcon" /> : "☰"}
+            </div>
+          ) : (
+            <div></div>
+          )}
           <ul className="topNavList">
             <li className="topNavItem">
               <NavLink to="/" className="topNavLink">

@@ -20,11 +20,11 @@ export const SideBar = ({ isMenuOpen }) => {
   return (
     <div className={`sideNavContainer ${isMenuOpen ? "open" : ""}`}>
       <div className="contentContainer">
-        <h2>select your travel route</h2>
+        <h2>Select your travel route</h2>
         <div className="radioContainer">
           <Radio.Group onChange={handleChange} defaultValue={mode}>
-            <Radio.Button value="averageBetween">Average Between</Radio.Button>
-            <Radio.Button value="averageTo">Average From</Radio.Button>
+            <Radio.Button value="averageBetween">Between two</Radio.Button>
+            <Radio.Button value="averageTo">From one</Radio.Button>
             <Radio.Button value="timeTable" disabled>
               Timetable
             </Radio.Button>
