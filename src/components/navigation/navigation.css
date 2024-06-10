@@ -19,11 +19,19 @@
   align-items: center;
 }
 
+.topLeftNav{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
 .burgerMenu {
   font-size: 24px;
   cursor: pointer;
   color: white;
   z-index: 10;
+  margin-right: 20px;
+
 }
 
 .topNavList {
@@ -61,4 +69,12 @@
 
 .topNavLink.active {
   text-decoration: underline;
+}
+
+.homeLink{
+  font-weight: bold;
+}
+
+.homeLink.active{
+  text-decoration: none;
 }

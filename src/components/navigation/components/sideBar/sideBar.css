@@ -47,3 +47,8 @@
 .infoButton:hover {
   cursor: pointer;
 }
+
+.radioButton{
+  color: #2a2b40;
+  font-weight: bold;
+}
