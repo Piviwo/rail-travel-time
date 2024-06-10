@@ -50,4 +50,18 @@
 
 .ant-radio-button-wrapper-checked {
   font-weight: 600 !important;
+  color: #2a2b40 !important;
+  border-color: #2a2b40 !important;
+}
+
+.ant-radio-button-wrapper-checked:hover {
+  color: gray !important;
+}
+
+.ant-radio-button-wrapper:hover {
+  color: gray !important;
+}
+
+.ant-radio-button-wrapper::before {
+  background-color: #2a2b40 !important;
 }

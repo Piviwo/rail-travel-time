@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.topLeftNav{
+.topLeftNav {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -31,7 +31,6 @@
   color: white;
   z-index: 10;
   margin-right: 20px;
-
 }
 
 .topNavList {
@@ -71,12 +70,14 @@
   text-decoration: underline;
 }
 
-.homeLink{
+.homeLink {
   font-weight: bold;
 }
 
-.homeLink.active{
+.homeLink.active {
   text-decoration: none;
+}
+
 .closeIcon {
   width: 20px;
 }
