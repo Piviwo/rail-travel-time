@@ -127,8 +127,9 @@ export const MapContainer = () => {
                   "line-cap": "round",
                 }}
                 paint={{
-                  "line-color": "gray",
-                  "line-width": 4,
+                  "line-color": "#2a2b40",
+                  "line-width": 3,
+                  "line-dasharray": [2, 2],
                 }}
               />
             </Source>
@@ -185,8 +186,9 @@ export const MapContainer = () => {
                 "line-cap": "round",
               }}
               paint={{
-                "line-color": "#888",
-                "line-width": 6,
+                "line-color": "#2a2b40",
+                "line-width": 3,
+                "line-dasharray": [2, 2],
               }}
             />
           </Source>
