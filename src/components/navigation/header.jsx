@@ -14,13 +14,18 @@ export const Header = ({ toggleMenu, isMenuOpen }) => {
     <>
       <div className="header">
         <nav className="topNavBar">
-          {typeof isMenuOpen !== "undefined" ? (
-            <div className="burgerMenu" onClick={toggleMenu}>
-              {isMenuOpen ? <CloseOutlined className="closeIcon" /> : "☰"}
-            </div>
-          ) : (
-            <div></div>
-          )}
+          <div className="topLeftNav">
+            {typeof isMenuOpen !== "undefined" ? (
+              <div className="burgerMenu" onClick={toggleMenu}>
+                {isMenuOpen ? <CloseOutlined className="closeIcon" /> : "☰"}
+              </div>
+            ) : (
+              <div></div>
+            )}
+            <NavLink to="/" className="topNavLink homeLink">
+              Rail Travel Time
+            </NavLink>
+          </div>
           <ul className="topNavList">
             <li className="topNavItem">
               <NavLink to="/" className="topNavLink">
