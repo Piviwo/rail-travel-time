@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useMemo } from "react";
-import Map, { Marker, Source, Layer } from "react-map-gl";
+import Map, { Marker, Source, Layer, Popup } from "react-map-gl";
 import maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useSelector } from "react-redux";
@@ -9,6 +9,9 @@ import {
   getFilteredCities,
   getMode,
 } from "../../app/app-selectors";
+import { dataLayer } from "./map-constants";
+import "./map.css";
+import railsData from "../../../data/railroads.json";
 import citiesData from "../../data/RailTimeTable.json";
 
 export const MapContainer = () => {
@@ -117,6 +120,17 @@ export const MapContainer = () => {
               longitude={city.Longitude}
               color="#87ced6"
             />
+            <Popup
+              latitude={city.Latitude}
+              longitude={city.Longitude}
+              closeButton={false}
+              closeOnClick={false}
+              anchor="bottom-left"
+              className="popup-no-background"
+            >
+              <div data-city={city.City}>{city.City}</div>
+            </Popup>
+
             <Source id={`route-${city.City}`} type="geojson" data={sourceData}>
               <Layer
                 id={`route-line-${city.City}`}
@@ -145,19 +159,24 @@ export const MapContainer = () => {
       ref={mapRef}
       mapLib={maplibre}
       initialViewState={{
-        latitude: 55,
-        longitude: 20,
+        latitude: 53,
+        longitude: 5,
         zoom: 3.5,
+        maxZoom: 12,
+        minZoom: 3,
       }}
       style={{ width: "100vw", height: "100vh" }}
       mapStyle={import.meta.env.VITE_API_KEY}
     >
+      <Source type="geojson" data={railsData}>
+        <Layer {...dataLayer} />
+      </Source>
       {coordinates?.length === 2 && mode == "averageBetween" && (
         <>
           <Marker
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
-          />
+          ></Marker>
           <Marker
             latitude={coordinates[1].latitude}
             longitude={coordinates[1].longitude}

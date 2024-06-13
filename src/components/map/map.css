@@ -1,0 +1,31 @@
+.maplibregl-popup-content {
+  background: none;
+  padding: 4px;
+  transform: translateX(15px);
+}
+
+.maplibregl-popup-tip {
+  opacity: 0;
+}
+
+.popup-no-background div {
+  position: relative;
+  font-size: 12px;
+  font-family: Montserrat;
+  color: #2a2b40;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.popup-no-background div::before {
+  content: attr(data-city);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: gray;
+  z-index: -1;
+  filter: blur(3px);
+  opacity: 0.8;
+  width: 100%;
+  height: auto;
+}
