@@ -16,7 +16,7 @@
   visibility: visible;
 }
 
-h2{
+.sideNavContainer h2{
   padding-top: 10px;  
   color:#2a2b40;
 }
