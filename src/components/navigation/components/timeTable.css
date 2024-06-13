@@ -1,0 +1,40 @@
+
+
+.departure_Timetable{
+    background-color: #000082;
+    color: #fff;
+    text-align: left;
+    font-size: small;
+    width: 100%;
+    border-collapse: collapse;
+ 
+}
+h2.departure_Timetable{
+    padding: 2vmin;
+    width: 75%;
+}
+.trainNumber{
+    color: #000082;
+    background-color: #fff;
+    
+}
+.departure_Timetable td, .departure_Timetable th{
+    padding-left: 1vmin;
+    padding-right: 1vmin;
+    font-weight: lighter;
+}
+.departure_Timetable th{
+    padding-left: 1vmin;
+    padding-right: 1vmin;
+    font-weight: normal;
+}
+
+  
+.departure_Timetable  tr:hover {
+    background-color: #5454af;
+  }
+  
+.departure_Timetable  .selected {
+    background-color: #B32428 !important;
+    color: white;
+  }

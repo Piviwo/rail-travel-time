@@ -5,8 +5,8 @@ import convert from "xml-js";
 export const getEVAbyName = async (stationName) => {
   const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/ris-stations/v1/stop-places/by-name/${stationName}`;
   const headers = {
-    "DB-Client-ID": import.meta.env.DB_API_ID,
-    "DB-Api-Key": import.meta.env.DB_API_KEY,
+    "DB-Client-ID": 'c3ff7cbf26563615a6b0f0ef81fff3b6',
+    "DB-Api-Key": '03408a082deb900e39719a0f7910f040',
     accept: "application/vnd.de.db.ris+json",
   };
   
@@ -48,8 +48,8 @@ export const getTimeTable = async (stationName) => {
   const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/timetables/v1/plan/${evaNumber}/${dataNow}`;
 
   const headers = {
-    "DB-Client-ID": import.meta.env.DB_API_ID,
-    "DB-Api-Key": import.meta.env.DB_API_KEY,
+    "DB-Client-ID": 'c3ff7cbf26563615a6b0f0ef81fff3b6',
+    "DB-Api-Key": '03408a082deb900e39719a0f7910f040',
     accept: "application/vnd.de.db.ris+json",
   };
 
@@ -68,11 +68,8 @@ export const getTimeTable = async (stationName) => {
   }
 };
 
-const isAlpha = str => /^[a-zA-Z]*$/.test(str);
-
 export const getFinalData = async (stationName) => {
   const finalData = await getTimeTable(stationName);
-
   console.log(finalData);
 
   if (!finalData) {
@@ -86,13 +83,22 @@ export const getFinalData = async (stationName) => {
     })
   ).timetable.s;
 
-  console.log(dataJson);
-
+  
   const finalStructuredData = dataJson.map((element) => {
     // define all attributes that are there always:
     const trainType= element.tl._attributes.c;
-    const trainStatus=element.tl._attributes.t;
+    let trainStatus = element.tl._attributes.t;
+    if(trainStatus=='p'){
+      trainStatus='as planned';
+    }else if(trainStatus=='c'){
+      trainStatus='stop is dropped';
+    }else{
+      trainStatus='stop was added';
+    }
+    
     let trainNumber = NaN;
+    // define kind as a filter for departing and arriving trains
+    let kind = 'none';
     // check if IC/ICE for train number
     if(element.tl._attributes.c=='IC' || element.tl._attributes.c=='ICE'){
       // trainNumber is number to be displayed on timetable
@@ -103,19 +109,23 @@ export const getFinalData = async (stationName) => {
       // define label and path
       const trainLabel= element.dp._attributes.l;
       const trainPath = element.dp._attributes.ppth.split("|");
+      const departure = element.dp._attributes.pt.slice(6,8) + ':' + element.dp._attributes.pt.slice(8,10);
+      kind='departing';
       // define train Number based on other facts:
       if(!trainNumber){
         if(Number.isNaN(trainLabel )){
           trainNumber = trainType;
-        } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
-          trainNumber = trainLabel;
-        }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
+        } else if(typeof trainLabel == "string" && /^[1-9]*$/.test(trainLabel[0])){
           trainNumber = trainType + trainLabel;
+        }else if(typeof trainLabel == "string" && /^[a-zA-Z]*$/.test(trainLabel[0])){
+          trainNumber = trainLabel;
         }
       }
       if(element.ar){
         // return if ar and dp exist:
         const trainOrigin = element.ar._attributes.ppth.split("|");
+        const arrival = element.ar._attributes.pt.slice(6,8) + ':' + element.ar._attributes.pt.slice(8,10);
+        kind = 'intermediate_stop';
         return {
           trainType,
           trainNumber,
@@ -125,6 +135,9 @@ export const getFinalData = async (stationName) => {
           trainEnd: trainPath[trainPath.length-1],
           trainOrigin,
           trainStart: trainOrigin[0],
+          departure,
+          arrival,
+          kind,
         };
       }
       // return if only dp exists:
@@ -135,18 +148,22 @@ export const getFinalData = async (stationName) => {
         trainLabel,
         trainPath,
         trainEnd: trainPath[trainPath.length-1],
+        departure,
+        kind,
       };
     }else if(element.ar){
       const trainLabel=element.ar._attributes.l;
       const trainOrigin = element.ar._attributes.ppth.split("|");
+      const arrival = element.ar._attributes.pt.slice(6,8) + ':' + element.ar._attributes.pt.slice(8,10);
+      kind='arriving';
       // determine train number:
       if(!trainNumber){
         if(Number.isNaN(trainLabel )){
           trainNumber = trainType;
-        } else if(typeof trainLabel == "string" && isAlpha(trainLabel[0])){
-          trainNumber = trainLabel;
-        }else if(typeof trainLabel == "string" && Number.isInteger(trainLabel[0])){
+        } else if(typeof trainLabel == "string" && /^[1-9]*$/.test(trainLabel[0])){
           trainNumber = trainType + trainLabel;
+        }else if(typeof trainLabel == "string" && /^[a-zA-Z]*$/.test(trainLabel[0])){
+          trainNumber = trainLabel;
         }
       }
       // return if only ar exists:
@@ -157,10 +174,13 @@ export const getFinalData = async (stationName) => {
         trainLabel,
         trainOrigin,
         trainStart: trainOrigin[0],
+        arrival,
+        kind,
       };
     };
     
   });
-
-  console.log(finalStructuredData);
+  return (finalStructuredData);
 };
+
+
