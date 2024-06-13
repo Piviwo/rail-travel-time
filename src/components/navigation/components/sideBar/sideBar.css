@@ -16,6 +16,10 @@
   visibility: visible;
 }
 
+h2{
+  color:#2a2b40;
+}
+
 .sideNavContainer .contentContainer {
   opacity: 0;
 }
