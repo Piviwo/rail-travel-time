@@ -7,7 +7,10 @@ import {
 } from "../../../../../app/app-actions";
 import { getSelectedCity } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
-import { InputNumber } from "antd";
+import {
+  // InputNumber,
+  Slider,
+} from "antd";
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
@@ -58,7 +61,7 @@ export const SelectCity = () => {
       </div>
       <div className="label">
         <span>in</span>
-        <InputNumber
+        {/* <InputNumber
           type="number"
           value={travelTimeLimit}
           onChange={handleTimeChange}
@@ -66,6 +69,18 @@ export const SelectCity = () => {
           minValue={1}
           maxValue={100}
           className="inputNumber"
+        /> */}
+        <Slider
+          min={1}
+          max={30}
+          value={travelTimeLimit}
+          onChange={handleTimeChange}
+          tooltip={{
+            formatter: (value) => `${value} hours`,
+            open: true,
+            placement: "bottom",
+          }}
+          style={{ width: "100%" }}
         />
       </div>
     </div>
