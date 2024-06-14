@@ -25,7 +25,7 @@ export const SideBar = ({ isMenuOpen }) => {
           <Radio.Group onChange={handleChange} defaultValue={mode} size="large">
             <Radio.Button value="averageBetween">Between two</Radio.Button>
             <Radio.Button value="averageTo">From one</Radio.Button>
-            <Radio.Button value="timeTable" disabled>
+            <Radio.Button value="timeTable" >
               Timetable
             </Radio.Button>
           </Radio.Group>
