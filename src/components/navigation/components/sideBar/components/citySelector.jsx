@@ -5,7 +5,7 @@ import {
   setSelectedCity,
   setFilteredCities,
 } from "../../../../../app/app-actions";
-import { getSelectedCity } from "../../../../../app/app-selectors";
+import { getSelectedCity, getFilteredCities } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
 import {
   // InputNumber,
@@ -15,7 +15,9 @@ import {
 export const SelectCity = () => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
-
+  const filteredCities = useSelector(getFilteredCities);
+  const cityWord_1 = filteredCities && filteredCities.length > 1 ? 'Cities' : 'City';
+  const cityWord_2 = filteredCities && filteredCities.length > 1 ? 'are' : 'is';
   const [travelTimeLimit, setTravelTimeLimit] = useState(5);
 
   const handleCityChange = (e) => {
@@ -66,8 +68,8 @@ export const SelectCity = () => {
           value={travelTimeLimit}
           onChange={handleTimeChange}
           addonAfter={"hours"}
-          minValue={1}
-          maxValue={100}
+          min={1}
+          max={100}
           className="inputNumber"
         /> */}
         <Slider
@@ -83,6 +85,16 @@ export const SelectCity = () => {
           style={{ width: "100%" }}
         />
       </div>
+      {selectedCity !== null && (
+        <div className="cityInfo">
+          <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}</span>
+          <ul className="city-list">
+            {filteredCities && filteredCities.map((city, index) => (
+              <li key={index} className="city-item">{city.City}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

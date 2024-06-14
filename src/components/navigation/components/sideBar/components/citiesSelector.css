@@ -20,6 +20,11 @@
   width: 210px;
 }
 
+.selectContainer p{
+  color:#2a2b40;
+  font-weight:500;
+}
+
 .selectItem {
   height: 30px;
   background-color: #2a2b40;
@@ -46,6 +51,8 @@
 
 .timeInfo span{
   font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .time, 
@@ -98,4 +105,8 @@
 
 .ant-slider-handle::after{
   box-shadow: 0 0 0 4px #2A2B40 !important;
+}
+.city-list {
+  list-style-type: none;
+  padding: 0;
 }
