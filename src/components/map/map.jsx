@@ -13,6 +13,7 @@ import { dataLayer } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
 import citiesData from "../../data/RailTimeTable.json";
+import PathIcon from '../../assets/place.svg';
 
 export const MapContainer = () => {
   const coordinates = useSelector(getCoordinates);
@@ -176,7 +177,11 @@ export const MapContainer = () => {
           <Marker
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
-          ></Marker>
+          >
+          {/* <div className={"pin"}>
+            <img src={PathIcon} alt={"type"} className="pin-img"/>
+          </div> */}
+          </Marker>
           <Marker
             latitude={coordinates[1].latitude}
             longitude={coordinates[1].longitude}

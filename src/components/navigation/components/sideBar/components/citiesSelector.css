@@ -3,11 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 210px;
+  max-width: 250px;
 }
 
 .button {
-  width: 134px;
   align-self: end;
   width: 158px;
 }
@@ -30,6 +29,7 @@
   font-size: 14px;
   color: white;
   transition: all 0.3s ease;
+  width: 90%;
 }
 
 .timeInfo {
@@ -51,8 +51,11 @@
 .row {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
   align-items: end;
+  width:80%;
+  justify-content: center;
+  margin-top:20px;
 }
 
 .label {
@@ -62,8 +65,21 @@
   gap: 5px;
   max-width: 320px;
   width: 100%;
+  justify-content: center;
 }
 
 .inputNumber {
   max-width: 158px;
+}
+
+.ant-slider-track{
+  background-color: #2A2B40 !important;
+}
+
+.ant-slider-track:hover{
+  background-color: gray !important;
+}
+
+.ant-slider-handle::after{
+  box-shadow: 0 0 0 4px #2A2B40 !important;
 }
