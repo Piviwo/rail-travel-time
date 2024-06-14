@@ -9,6 +9,7 @@
 
 .button {
   width: 158px;
+  height:38px;
 }
 
 .selectContainer {
@@ -26,7 +27,7 @@
 }
 
 .selectItem {
-  height: 30px;
+  height: 38px;
   background-color: #2a2b40;
   border: none;
   border-radius: 5px;
@@ -74,11 +75,8 @@
 .row {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  align-items: end;
-  width:80%;
-  justify-content: center;
-  margin-top:20px;
+  gap: 10px;
+  align-items: center;
 }
 
 .label {
@@ -89,6 +87,11 @@
   max-width: 320px;
   width: 100%;
   justify-content: center;
+}
+
+.label span{
+  color:#2a2b40;
+  font-weight:500;
 }
 
 .inputNumber {
@@ -106,6 +109,10 @@
 .ant-slider-handle::after{
   box-shadow: 0 0 0 4px #2A2B40 !important;
 }
+.cityInfo{
+  padding: 10px 15px;
+}
+
 .city-list {
   list-style-type: none;
   padding: 0;

@@ -88,13 +88,13 @@ export const InfoModal = ({ isOpened, onCancel }) => {
         </div>
 
         <h2>Data source & license</h2>
-        <p>
+        <div>
           <ul className="info-list">
             <li>Basemap: MapTiler API (License: OdbL)</li>
             <li>Train travel times:</li>
             <li>Train travel API:</li>
           </ul>
-        </p>
+        </div>
       </div>
     </Modal>
   );
