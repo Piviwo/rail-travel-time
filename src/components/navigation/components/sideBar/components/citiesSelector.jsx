@@ -47,6 +47,16 @@ export const SelectCities = () => {
     }
   };
 
+  function getColorBasedOnTime(averageTime) {
+    if (averageTime < 5) {
+      return '#C0D99A';
+    } else if (averageTime >= 5 && averageTime <= 10) {
+      return '#FFDF48';
+    } else {
+      return '#F26444';
+    }
+  }
+
   return (
     <div className="selectors">
       <label className="selectContainer">
@@ -96,7 +106,7 @@ export const SelectCities = () => {
       {averageTime !== null && (
         <div className="timeInfo">
           <span>Average Time:</span>
-          <div className="time">
+          <div className="time " style={{ backgroundColor: getColorBasedOnTime(averageTime) }}>
             <span>{averageTime}</span> hours
           </div>
         </div>
