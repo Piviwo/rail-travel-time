@@ -1,7 +1,5 @@
 import { useState } from "react";
 import "./navigation.css";
-import { Header } from "./header";
-import { SideBar } from "./components";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -9,6 +7,8 @@ export const Navigation = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const [isInfoModalOpen, setInfoModalOpen] = useState(false);
 
   return (
     <>
