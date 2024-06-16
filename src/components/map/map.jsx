@@ -58,7 +58,17 @@ export const MapContainer = () => {
           }
         );
       }
-    }
+    }else if(coordinates &&
+      coordinates[0] && 
+      coordinates?.length === 1 &&
+      mapRef?.current != null){
+      if (coordinates[0].longitude && coordinates[0].latitude) {
+          mapRef?.current.flyTo({
+            center: [coordinates[0].longitude, coordinates[0].latitude],
+            zoom: 5.5
+          });
+        }
+      }
   }, [coordinates]);
 
   useEffect(() => {
@@ -165,6 +175,97 @@ export const MapContainer = () => {
     return routesToDraw;
   }, [filteredCities, mode, selectedCity]);
 
+  const timeTableMarker = useMemo(() => {
+    if(coordinates?.length === 1 && mode === "timeTable"){
+      return (
+        <React.Fragment key={coordinates[0].name}>
+          <Marker
+            latitude={coordinates[0].latitude}
+            longitude={coordinates[0].longitude}
+          >
+          </Marker>
+          <Popup
+            latitude={coordinates[0].latitude}
+            longitude={coordinates[0].longitude}
+            closeButton={false}
+            closeOnClick={false}
+            anchor="bottom-left"
+            className="popup-no-background"
+          >
+            <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+          </Popup>
+        </React.Fragment>
+      );
+    }else if(coordinates?.length === 2 && mode === "timeTable"){
+      const sourceData = {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [coordinates[0].longitude, coordinates[0].latitude],
+              [coordinates[1].longitude, coordinates[1].latitude],
+            ],
+          },
+      };
+
+      return (
+          <React.Fragment key={coordinates[0].name}>
+            <Marker
+              latitude={coordinates[0].latitude}
+              longitude={coordinates[0].longitude}
+              color="#87ced6"
+            />
+            <Popup
+              latitude={coordinates[0].latitude}
+              longitude={coordinates[0].longitude}
+              closeButton={false}
+              closeOnClick={false}
+              anchor="bottom-left"
+              className="popup-no-background"
+            >
+              <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+            </Popup>
+
+            <Marker
+              latitude={coordinates[1].latitude}
+              longitude={coordinates[1].longitude}
+              color="#87ced6"
+            />
+            <Popup
+              latitude={coordinates[1].latitude}
+              longitude={coordinates[1].longitude}
+              closeButton={false}
+              closeOnClick={false}
+              anchor="bottom-left"
+              className="popup-no-background"
+            >
+              <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
+            </Popup>
+
+            <Source id={`route-timetable`} type="geojson" data={sourceData}>
+              <Layer
+                id={`route-line-timetable`}
+                type="line"
+                source={`route-timetable`}
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "#2a2b40",
+                  "line-width": 3,
+                  "line-dasharray": [2, 2],
+                }}
+              />
+            </Source>
+          </React.Fragment>
+      );
+    }else{
+      return null;
+    }
+  }, [coordinates, mode]);
+
   return (
     <Map
       ref={mapRef}
@@ -232,6 +333,8 @@ export const MapContainer = () => {
           </Source>
         </>
       )}
+      
+      {timeTableMarker}
 
       {routesFromCity}
     </Map>

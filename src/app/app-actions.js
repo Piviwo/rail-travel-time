@@ -21,6 +21,7 @@ export const setFilteredCities = createAction(
   })
 );
 
+
 export const setMode = createAction(`appState/setMode`, (payload) => ({
   payload,
 }));

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./navigation.css";
 import { Header } from "./header";
 import { SideBar } from "./components";
+import "./navigation.css";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
