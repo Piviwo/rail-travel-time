@@ -22,7 +22,8 @@ import "./citiesSelector.css";
 export const SelectCity = () => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
-  const filteredCities = useSelector(getFilteredCities);
+  const filteredCities = selectedCity ? useSelector(getFilteredCities).filter(city => city.City !== selectedCity) : useSelector(getFilteredCities);
+  //const filteredCities = useSelector(getFilteredCities);
   const cityWord_1 = filteredCities && filteredCities.length > 1 ? 'Cities' : 'City';
   const cityWord_2 = filteredCities && filteredCities.length > 1 ? 'are' : 'is';
   const [travelTimeLimit, setTravelTimeLimit] = useState(5);
@@ -67,8 +68,8 @@ export const SelectCity = () => {
           search
           className="select-search"
           placeholder="From city"
-    />
-        
+        />
+
       </div>
       <div className="label">
         <span>in</span>
@@ -96,7 +97,13 @@ export const SelectCity = () => {
       </div>
       {selectedCity !== null && (
         <div className="cityInfo">
-          <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}</span>
+          {
+            filteredCities && filteredCities.length === 0 ? (
+              <span>No city is reachable within {travelTimeLimit} hour from {selectedCity}</span>
+            ) : (
+              <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}</span>
+            )
+          }
           <ul className="city-list">
             {filteredCities && filteredCities.map((city, index) => (
               <li key={index} className="city-item">{city.City}</li>
