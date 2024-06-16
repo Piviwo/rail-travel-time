@@ -17,4 +17,5 @@ export const getFilteredCities = createSelector(
   (state) => state.filteredCities
 );
 
+
 export const getMode = createSelector(getAppState, (state) => state.mode);
