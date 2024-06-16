@@ -48,9 +48,15 @@ export const getTimeTable = async (stationName) => {
   const url = `https://apis.deutschebahn.com/db-api-marketplace/apis/timetables/v1/plan/${evaNumber}/${dataNow}`;
 
   const headers = {
+<<<<<<< HEAD
     "DB-Client-ID": 'c3ff7cbf26563615a6b0f0ef81fff3b6',
     "DB-Api-Key": '03408a082deb900e39719a0f7910f040',
     accept: "application/vnd.de.db.ris+json",
+=======
+    "DB-Client-ID": import.meta.env.DB_API_ID,
+    "DB-Api-Key": import.meta.env.DB_API_KEY,
+    accept: "application/json",
+>>>>>>> 00d9526 (some db API requests)
   };
 
   try {
@@ -70,6 +76,10 @@ export const getTimeTable = async (stationName) => {
 
 export const getFinalData = async (stationName) => {
   const finalData = await getTimeTable(stationName);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 00d9526 (some db API requests)
   console.log(finalData);
 
   if (!finalData) {
@@ -83,6 +93,7 @@ export const getFinalData = async (stationName) => {
     })
   ).timetable.s;
 
+<<<<<<< HEAD
   
   const finalStructuredData = dataJson.map((element) => {
     // define all attributes that are there always:
@@ -184,3 +195,22 @@ export const getFinalData = async (stationName) => {
 };
 
 
+=======
+  console.log(dataJson);
+
+  const finalStructuredData = dataJson.map((element) => {
+    return {
+      trainType: element.tl._attributes.c,
+      trainNumber: element.tl._attributes.n,
+      trainStatus: element.tl._attributes.t,
+      arCheck: element.ar,
+      dpCheck: element.dp,
+
+      //   trainLabel: element.dp._attributes.l,
+      //   trainPath: element.dp._attributes.ppth,
+    };
+  });
+
+  console.log(finalStructuredData);
+};
+>>>>>>> 00d9526 (some db API requests)

@@ -14,6 +14,7 @@ export const Navigation = () => {
     <>
       <Header toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
       <SideBar isMenuOpen={isMenuOpen} />
+      <Timetable stationName="Frankfurt(Main)Hbf" />
     </>
   );
 };
