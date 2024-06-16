@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-
+  width:100%;
 }
 
 .button {
@@ -15,10 +15,11 @@
 .selectContainer {
   display: block;
   margin-bottom: 10px;
+  width: 100%
 }
 
 .select-search-container {
-  width: 365px;
+  width: 100%;
   --select-search-background: #2a2b40;
   --select-search-border: #2a2b40;
   --select-search-selected: #89b4fa;
@@ -79,7 +80,6 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  max-width: 320px;
   width: 100%;
   justify-content: center;
 }
@@ -106,7 +106,7 @@
 }
 .cityInfo{
   padding: 0px 15px;
-  max-width:350px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,11 +117,21 @@
   font-size: large;
   color:#2a2b40;
 }
+@media (max-width: 599px){
+  .cityInfo span{
+    font-size: 14px;
+  }
+}
 
 .city-list {
   list-style-type: none;
-  background-color:#2a2b40;
+  background-color: transparent;
   padding: 10px;
   font-size: medium;
   border-radius: 5px;
+}
+
+.city-list:has(li) {
+  
+  background-color:#2a2b40;
 }

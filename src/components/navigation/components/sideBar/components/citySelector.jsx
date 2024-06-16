@@ -93,9 +93,9 @@ export const SelectCity = () => {
         <div className="cityInfo">
           {
             filteredCities && filteredCities.length === 0 ? (
-              <span>No city is reachable within {travelTimeLimit} hour from {selectedCity}</span>
+              <span>No city is reachable within {travelTimeLimit} hour from {selectedCity}!</span>
             ) : (
-              <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}</span>
+              <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}:</span>
             )
           }
           <ul className="city-list">
