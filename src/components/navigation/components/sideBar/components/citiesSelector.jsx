@@ -79,7 +79,7 @@ export const SelectCities = () => {
           onChange={handleCity1Change}
           search
           name="city1"
-          placeholder="From City"
+          placeholder="From city"
         />
       </label>
       <label className="selectContainer">
@@ -89,7 +89,7 @@ export const SelectCities = () => {
           onChange={handleCity2Change}
           search
           name="city2"
-          placeholder="To City"
+          placeholder="To city"
         />
       </label>
 
