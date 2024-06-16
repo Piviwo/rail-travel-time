@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import "./sideBar.css";
+import { Timetable } from "../timeTable";
 
 import { SideContent } from "./sideContent";
 import { Radio } from "antd";
@@ -32,6 +33,7 @@ export const SideBar = ({ isMenuOpen }) => {
         </div>
         <SideContent />
       </div>
+      <Timetable stationName="Frankfurt(Main)Hbf" />
     </div>
   );
 };
