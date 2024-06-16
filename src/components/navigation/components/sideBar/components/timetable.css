@@ -12,7 +12,7 @@ h2.departure_Timetable {
   padding-top: 1vmin;
   padding-right: 2vmin;
   width: 80%;
-  color:white;
+  color:white !important;
 }
 /* .trainNumber {
   color: #000082;
