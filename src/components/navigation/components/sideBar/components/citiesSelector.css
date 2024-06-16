@@ -3,59 +3,75 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 250px;
+  gap: 20px;
+
 }
 
 .button {
-  align-self: end;
   width: 158px;
+  height:38px;
 }
 
 .selectContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: end;
-  align-items: center;
-  width: 210px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.selectItem {
-  height: 30px;
-  background-color: #2a2b40;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: white;
-  transition: all 0.3s ease;
-  width: 90%;
+.select-search-container {
+  width: 365px;
+  --select-search-background: #2a2b40;
+  --select-search-border: #2a2b40;
+  --select-search-selected: #89b4fa;
+  --select-search-text: #fff;
+  --select-search-subtle-text: #a6adc8;
+  --select-search-highlight: #1e1e2e;
+}
+
+.select-search-input:hover,
+.select-search-has-focus .select-search-select{
+  border-color:  #2a2b40 !important;
 }
 
 .timeInfo {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   margin-top: 20px;
   width: 158px;
   align-items: center;
+  justify-content: center;
   text-align: center;
   right: 0;
-  align-self: flex-end;
+  color:white;
+}
+
+.timeInfo span{
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.time, 
+.time span{
+  font-size:25px;
 }
 
 .time {
-  font-size: 24px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  gap: 10px;
+  border-radius: 50%;
+  color: white;
 }
 
 .row {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  align-items: end;
-  width:80%;
-  justify-content: center;
-  margin-top:20px;
+  align-items: center;
 }
 
 .label {
@@ -66,6 +82,11 @@
   max-width: 320px;
   width: 100%;
   justify-content: center;
+}
+
+.label span{
+  color:#2a2b40;
+  font-weight:500;
 }
 
 .inputNumber {
@@ -82,4 +103,25 @@
 
 .ant-slider-handle::after{
   box-shadow: 0 0 0 4px #2A2B40 !important;
+}
+.cityInfo{
+  padding: 0px 15px;
+  max-width:350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cityInfo span{
+  font-weight: 600;
+  font-size: large;
+  color:#2a2b40;
+}
+
+.city-list {
+  list-style-type: none;
+  background-color:#2a2b40;
+  padding: 10px;
+  font-size: medium;
+  border-radius: 5px;
 }
