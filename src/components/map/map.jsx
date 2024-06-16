@@ -13,7 +13,8 @@ import { dataLayer } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
 import citiesData from "../../data/RailTimeTable.json";
-import PathIcon from '../../assets/place.svg';
+import place1 from '../../assets/place_1.svg';
+import place2 from '../../assets/place_2.svg';
 
 export const MapContainer = () => {
   const coordinates = useSelector(getCoordinates);
@@ -116,22 +117,31 @@ export const MapContainer = () => {
 
         return (
           <React.Fragment key={city.City}>
-            <Marker
-              latitude={city.Latitude}
-              longitude={city.Longitude}
-              color="#87ced6"
-            />
-            <Popup
-              latitude={city.Latitude}
-              longitude={city.Longitude}
-              closeButton={false}
-              closeOnClick={false}
-              anchor="bottom-left"
-              className="popup-no-background"
-            >
+          {city.City == selectedCity ? (
+                <Marker
+                  latitude={city.Latitude}
+                  longitude={city.Longitude}
+                >
+                  <img src={place1} alt="Origin Marker" style={{ width: '40px', height: '40px' }} />
+                </Marker>
+              ) : (
+                <Marker
+                  latitude={city.Latitude}
+                  longitude={city.Longitude}
+                >
+                  <img src={place2} alt="Marker 2" style={{ width: '40px', height: '40px' }} />
+                </Marker>
+              )}
+              <Popup
+                latitude={city.Latitude}
+                longitude={city.Longitude}
+                closeButton={false}
+                closeOnClick={false}
+                anchor="bottom-left"
+                className="popup-no-background"
+              >
               <div data-city={city.City}>{city.City}</div>
             </Popup>
-
             <Source id={`route-${city.City}`} type="geojson" data={sourceData}>
               <Layer
                 id={`route-line-${city.City}`}
@@ -177,15 +187,19 @@ export const MapContainer = () => {
           <Marker
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
+            offsetLeft={-20}
+            offsetTop={-40}
           >
-          {/* <div className={"pin"}>
-            <img src={PathIcon} alt={"type"} className="pin-img"/>
-          </div> */}
+            <img src={place1} alt="Marker 1" style={{ width: '40px', height: '40px' }} />
           </Marker>
           <Marker
             latitude={coordinates[1].latitude}
             longitude={coordinates[1].longitude}
-          />
+            offsetLeft={-20}
+            offsetTop={-40}
+          >
+            <img src={place2} alt="Marker 2" style={{ width: '40px', height: '40px' }} />
+          </Marker>
           <Source
             id="route"
             type="geojson"
