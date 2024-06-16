@@ -1,31 +1,49 @@
-.table-container {
-    margin: 20px;
-    overflow-x: auto;
-    width: 80%;
+.departure_Timetable {
+  background-color: #000082;
+  color: #fff;
+  text-align: left;
+  font-size: small;
+  width: 100%;
+  border-collapse: collapse;
+}
+h2.departure_Timetable {
+  padding-bottom: 2vmin;
+  padding-left:1vmin;
+  padding-top: 1vmin;
+  padding-right: 2vmin;
+  width: 80%;
+}
+.trainNumber {
+  color: #000082;
+  background-color: #fff;
+}
+.departure_Timetable table{
+  max-height: 80%;
+  overflow-y: scroll;
+}
+.departure_Timetable td,
+.departure_Timetable th {
+  padding-left: 1vmin;
+  padding-right: 1vmin;
+  font-weight: lighter;
+}
+.departure_Timetable th {
+  padding-left: 1vmin;
+  padding-right: 1vmin;
+  font-weight: normal;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
+.departure_Timetable tr:hover {
+  background-color: #5454af;
 }
 
-table, th, td {
-    border: 1px solid #2a2b40;
+table.departure_Timetable tbody tr.selected td {
+  background-color: #b32428;
+  color: white;
 }
 
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-th {
-    background-color: #2a2b40;
-}
-
-tr{
-    background-color:white;
-}
-
-td{
-    color: #2a2b40;
+@media (max-width: 1000px) {
+  .departure_Timetable .statusColumn {
+    display: none; /* Hide status column on smaller screens */
+  }
 }
