@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 import { getFinalData } from "./utils";
 import { setCoordinates } from "../../../../../app/app-actions";
-import "./timeTable.css";
+import "./timetable.css";
 import "./citiesSelector.css";
 import citiesLocations from "../../../../../../data/cities_forTimetable.json";
 import SelectSearch from 'react-select-search';
-
 
 export const Timetable = () => {
   const [stationName, setStationName] = useState("Frankfurt (Main) Hbf");
@@ -23,12 +21,11 @@ export const Timetable = () => {
   }));
 
   //const normalizeString = (str) => str.trim().replace(/\s+/g, '');
-  
-  
+
   const findDestIndexByName = (name) => {
     const entry = cityEntries.find(([index, cityName]) => {
-      const trimmedCityName = cityName.trim().replace(/\s+/g, '');
-      const trimmedName = name.trim().replace(/\s+/g, '');
+      const trimmedCityName = cityName.trim().replace(/\s+/g, "");
+      const trimmedName = name.trim().replace(/\s+/g, "");
       return trimmedCityName === trimmedName;
     });
     return entry ? entry[0] : null; // Return the index if found, otherwise return null
@@ -40,8 +37,12 @@ export const Timetable = () => {
   };
 
   const getCoordinates = (index) => {
-    const latitudeEntry = cityLatitudes.find(([latIndex]) => latIndex === index);
-    const longitudeEntry = cityLongitudes.find(([lonIndex]) => lonIndex === index);
+    const latitudeEntry = cityLatitudes.find(
+      ([latIndex]) => latIndex === index
+    );
+    const longitudeEntry = cityLongitudes.find(
+      ([lonIndex]) => lonIndex === index
+    );
     if (latitudeEntry && longitudeEntry) {
       return {
         lat: latitudeEntry[1],
@@ -53,12 +54,9 @@ export const Timetable = () => {
 
   const dispatch = useDispatch();
 
- 
-  
   //   const index = findIndexByName(e.target.value);
   //   setCityIndex(index);
   //   const coordinates = index ? getCoordinates(index) : null;
-  
 
   const fetchStationCoordinates = async () => {
     try {
@@ -70,21 +68,20 @@ export const Timetable = () => {
             name: stationName,
             latitude: coordData.lat,
             longitude: coordData.lon,
-          }
+          },
         ])
       );
     } catch (err) {
       console.error("Failed to fetch coordinates", err);
     }
   };
-  
-  
+
   const fetchDestinationCoordinates = async (destName) => {
     try {
       const index = findIndexByName(stationName);
       const coordData = index ? getCoordinates(index) : null;
       const indexdest = findDestIndexByName(destName);
-      try{
+      try {
         const coordDatadest = getCoordinates(indexdest);
         dispatch(
           setCoordinates([
@@ -97,18 +94,16 @@ export const Timetable = () => {
               name: destName,
               latitude: coordDatadest.lat,
               longitude: coordDatadest.lon,
-            }
+            },
           ])
         );
-      }catch (err) {
+      } catch (err) {
         console.error("Failed to fetch coordinates for destination", err);
       }
-      
     } catch (err) {
       console.error("Failed to fetch coordinates", err);
     }
   };
-  
 
   const fetchTimeTable = async () => {
     try {
@@ -129,16 +124,13 @@ export const Timetable = () => {
   };
 
   useEffect(() => {
-   
-      fetchTimeTable();   
-
+    fetchTimeTable();
   }, [stationName]);
 
   if (!timeTable) {
     return <p>Loading...</p>;
   }
 
-    
   const departures = timeTable
     .filter(
       (entry) => entry.kind == "departure" || entry.kind == "intermediate_stop"
@@ -148,12 +140,13 @@ export const Timetable = () => {
         new Date(`1970/01/01 ${a.departure}`) -
         new Date(`1970/01/01 ${b.departure}`)
     );
-  const arrivals = timeTable.filter((entry) => entry.kind === "arrival").sort(
-    (a, b) =>
-      new Date(`1970/01/01 ${a.arrivals}`) -
-      new Date(`1970/01/01 ${b.arrivals}`)
-  );
- 
+  const arrivals = timeTable
+    .filter((entry) => entry.kind === "arrival")
+    .sort(
+      (a, b) =>
+        new Date(`1970/01/01 ${a.arrivals}`) -
+        new Date(`1970/01/01 ${b.arrivals}`)
+    );
 
   return (
     <>
@@ -169,11 +162,14 @@ export const Timetable = () => {
         />
           {/* <p>from</p>
           <select value={stationName} onChange={handleStationChange} className="selectItem">
+          <p>from</p>
+          <select
+            value={stationName}
+            onChange={handleStationChange}
+            className="selectItem"
+          >
             {cityEntries.map(([index, cityName]) => (
-              <option
-                key={index}
-                value={cityName}
-              >
+              <option key={index} value={cityName}>
                 {cityName}
               </option>
             ))}
@@ -196,7 +192,7 @@ export const Timetable = () => {
               {departures.map((entry, index) => (
                 <tr
                   key={index}
-                  className={selectedRow === index ? 'selected' : ''}
+                  className={selectedRow === index ? "selected" : ""}
                   onClick={() => handleRowClick(index, entry)}
                 >
                   <td>{entry.departure}</td>
@@ -212,8 +208,5 @@ export const Timetable = () => {
         )}
       </div>
     </>
-    
-      
   );
 };
-
