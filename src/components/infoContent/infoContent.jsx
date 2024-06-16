@@ -148,7 +148,7 @@ export const InfoContent = () => {
       <div className="image-text-container2">
         <div className="text-content2">
           <h3>Country Differences:</h3>
-          <p>
+          <div>
             The 2017 European Railway Performance Index ranked the performance
             of national rail systems as follows:
             <ul className="bullet-list">
@@ -166,7 +166,7 @@ export const InfoContent = () => {
                 Slovakia, Poland, Portugal, Romania, and Bulgaria.
               </li>
             </ul>
-          </p>
+          </div>
 
           <p>
             One of the main differences between the countries lays in the

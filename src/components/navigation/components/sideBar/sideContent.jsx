@@ -4,7 +4,6 @@ import { SelectCities, SelectCity, Timetable } from "./components";
 
 export const SideContent = () => {
   const mode = useSelector(getMode);
-
   if (mode === "averageBetween") {
     return <SelectCities />;
   } else if (mode === "timeTable") {
