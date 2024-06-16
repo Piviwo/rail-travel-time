@@ -7,10 +7,17 @@ import {
 } from "../../../../../app/app-actions";
 import { getSelectedCity, getFilteredCities } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
+<<<<<<< HEAD
 import {
   // InputNumber,
   Slider,
 } from "antd";
+=======
+import { InputNumber } from "antd";
+import SelectSearch from 'react-select-search';
+import "./citiesSelector.css";
+
+>>>>>>> 7a7051e (add search selection)
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
@@ -20,8 +27,13 @@ export const SelectCity = () => {
   const cityWord_2 = filteredCities && filteredCities.length > 1 ? 'are' : 'is';
   const [travelTimeLimit, setTravelTimeLimit] = useState(5);
 
-  const handleCityChange = (e) => {
-    dispatch(setSelectedCity(e.target.value));
+  const cityOptions = citiesData.map(city => ({
+    value: city.City,
+    name: city.City
+  }));
+
+  const handleCityChange = (value) => {
+    dispatch(setSelectedCity(value));
     dispatch(setFilteredCities([]));
   };
 
@@ -48,18 +60,15 @@ export const SelectCity = () => {
   return (
     <div className="row">
       <div className="label">
-        <span>from</span>
-        <select
+        <SelectSearch
+          options={cityOptions}
           value={selectedCity}
           onChange={handleCityChange}
-          className="selectItem"
-        >
-          {citiesData?.map((city) => (
-            <option key={city.City} value={city.City}>
-              {city.City}
-            </option>
-          ))}
-        </select>
+          search
+          className="select-search"
+          placeholder="From city"
+    />
+        
       </div>
       <div className="label">
         <span>in</span>

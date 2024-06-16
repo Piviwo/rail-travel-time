@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCoordinates } from "../../../../../app/app-actions";
 import citiesData from "../../../../../data/RailTimeTable.json";
+import 'react-select-search/style.css'
 import "./citiesSelector.css";
 import { Button } from "antd";
+import SelectSearch from 'react-select-search';
 
 export const SelectCities = () => {
-  const [city1, setCity1] = useState("Vienna");
-  const [city2, setCity2] = useState("Berlin");
+  const [city1, setCity1] = useState("");
+  const [city2, setCity2] = useState("");
   const [averageTime, setAverageTime] = useState(null);
-
   const dispatch = useDispatch();
 
-  const handleCity1Change = (e) => {
-    setCity1(e.target.value);
+  const citiesOptions1 = citiesData.map(city => ({
+    name: city.City,
+    value: city.City,
+    disabled: city.City === city2
+  }));
+
+  const citiesOptions2 = citiesData.map(city => ({
+    name: city.City,
+    value: city.City,
+    disabled: city.City === city1
+  }));
+
+  const handleCity1Change = (selectedValue) => {
+    setCity1(selectedValue);
   };
 
-  const handleCity2Change = (e) => {
-    setCity2(e.target.value);
+  const handleCity2Change = (selectedValue) => {
+    setCity2(selectedValue);
   };
 
   const getAverageTime = () => {
@@ -60,40 +73,24 @@ export const SelectCities = () => {
   return (
     <div className="selectors">
       <label className="selectContainer">
-        <p>from</p>
-        <select
+        <SelectSearch
+          options={citiesOptions1}
           value={city1}
           onChange={handleCity1Change}
-          className="selectItem"
-        >
-          {citiesData?.map((city) => (
-            <option
-              key={city.City}
-              value={city.City}
-              disabled={city.City == city2}
-            >
-              {city.City}
-            </option>
-          ))}
-        </select>
+          search
+          name="city1"
+          placeholder="From City"
+        />
       </label>
       <label className="selectContainer">
-        <p>to</p>
-        <select
+        <SelectSearch
+          options={citiesOptions2}
           value={city2}
           onChange={handleCity2Change}
-          className="selectItem"
-        >
-          {citiesData?.map((city) => (
-            <option
-              key={city.City}
-              value={city.City}
-              disabled={city.City == city1}
-            >
-              {city.City}
-            </option>
-          ))}
-        </select>
+          search
+          name="city2"
+          placeholder="To City"
+        />
       </label>
 
       <Button

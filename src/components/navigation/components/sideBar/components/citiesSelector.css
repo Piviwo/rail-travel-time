@@ -5,6 +5,7 @@
   justify-content: center;
   max-width: 210px;
   gap: 20px;
+
 }
 
 .button {
@@ -13,29 +14,22 @@
 }
 
 .selectContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  width: 210px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.selectContainer p{
-  color:#2a2b40;
-  font-weight:500;
+.select-search-container {
+  --select-search-background: #2a2b40;
+  --select-search-border: #2a2b40;
+  --select-search-selected: #89b4fa;
+  --select-search-text: #fff;
+  --select-search-subtle-text: #a6adc8;
+  --select-search-highlight: #1e1e2e;
 }
 
-.selectItem {
-  height: 38px;
-  background-color: #2a2b40;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: white;
-  transition: all 0.3s ease;
-  width: 90%;
+.select-search-input:hover,
+.select-search-has-focus .select-search-select{
+  border-color:  #2a2b40 !important;
 }
 
 .timeInfo {
