@@ -7,17 +7,10 @@ import {
 } from "../../../../../app/app-actions";
 import { getSelectedCity, getFilteredCities } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
-<<<<<<< HEAD
-import {
-  // InputNumber,
-  Slider,
-} from "antd";
-=======
 import { InputNumber } from "antd";
 import SelectSearch from 'react-select-search';
 import "./citiesSelector.css";
 
->>>>>>> 7a7051e (add search selection)
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
