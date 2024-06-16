@@ -22,8 +22,9 @@ import "./citiesSelector.css";
 export const SelectCity = () => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
-  const filteredCities = selectedCity ? useSelector(getFilteredCities).filter(city => city.City !== selectedCity) : useSelector(getFilteredCities);
-  //const filteredCities = useSelector(getFilteredCities);
+  let filteredCities = useSelector(getFilteredCities);
+  filteredCities = selectedCity && filteredCities ? filteredCities.filter(city => city.City !== selectedCity) : filteredCities;
+  
   const cityWord_1 = filteredCities && filteredCities.length > 1 ? 'Cities' : 'City';
   const cityWord_2 = filteredCities && filteredCities.length > 1 ? 'are' : 'is';
   const [travelTimeLimit, setTravelTimeLimit] = useState(5);
