@@ -6,6 +6,7 @@ import { setCoordinates } from "../../../../../app/app-actions";
 import "./timeTable.css";
 import "./citiesSelector.css";
 import citiesLocations from "../../../../../../data/cities_forTimetable.json";
+import SelectSearch from 'react-select-search';
 
 
 export const Timetable = () => {
@@ -15,6 +16,11 @@ export const Timetable = () => {
   const cityEntries = Object.entries(citiesLocations.name);
   const cityLatitudes = Object.entries(citiesLocations.latitude);
   const cityLongitudes = Object.entries(citiesLocations.longitude);
+
+  const cityOptions = cityEntries.map(city => ({
+    value: city[0],
+    name: city[1]
+  }));
 
   //const normalizeString = (str) => str.trim().replace(/\s+/g, '');
   
@@ -114,8 +120,8 @@ export const Timetable = () => {
     }
   };
 
-  const handleStationChange = (e) => {
-    setStationName(e.target.value);
+  const handleStationChange = (value) => {
+    setStationName(value);
   };
 
   const handleRowClick = (index, entry) => {
@@ -153,7 +159,15 @@ export const Timetable = () => {
     <>
       <div className="selectors">
         <label className="selectContainer">
-          <p>from</p>
+        <SelectSearch
+          options={cityOptions}
+          value={stationName}
+          onChange={handleStationChange}
+          search
+          className="select-search"
+          placeholder="From city"
+        />
+          {/* <p>from</p>
           <select value={stationName} onChange={handleStationChange} className="selectItem">
             {cityEntries.map(([index, cityName]) => (
               <option
@@ -163,7 +177,7 @@ export const Timetable = () => {
                 {cityName}
               </option>
             ))}
-          </select>
+          </select> */}
         </label>
       </div>
       <div className="departure_Timetable">
@@ -173,7 +187,7 @@ export const Timetable = () => {
             <thead>
               <tr>
                 <th>Time</th>
-                <th></th>
+                <th>Train Nr</th>
                 <th>Destination</th>
                 <th className="statusColumn">Status</th>
               </tr>

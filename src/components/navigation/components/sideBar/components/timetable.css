@@ -1,5 +1,5 @@
 .departure_Timetable {
-  background-color: #000082;
+  background-color: #2a2b40;
   color: #fff;
   text-align: left;
   font-size: small;
@@ -12,11 +12,12 @@ h2.departure_Timetable {
   padding-top: 1vmin;
   padding-right: 2vmin;
   width: 80%;
+  color:white;
 }
-.trainNumber {
+/* .trainNumber {
   color: #000082;
   background-color: #fff;
-}
+} */
 .departure_Timetable table{
   max-height: 80%;
   overflow-y: scroll;
@@ -46,4 +47,8 @@ table.departure_Timetable tbody tr.selected td {
   .departure_Timetable .statusColumn {
     display: none; /* Hide status column on smaller screens */
   }
+}
+
+.select-search{
+  color:white;
 }
