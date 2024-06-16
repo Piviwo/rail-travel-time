@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Header } from "./header";
+import { SideBar } from "./components";
 import "./navigation.css";
 
 export const Navigation = () => {
@@ -8,13 +10,10 @@ export const Navigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [isInfoModalOpen, setInfoModalOpen] = useState(false);
-
   return (
     <>
       <Header toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
       <SideBar isMenuOpen={isMenuOpen} />
-      <Timetable stationName="Frankfurt(Main)Hbf" />
     </>
   );
 };
