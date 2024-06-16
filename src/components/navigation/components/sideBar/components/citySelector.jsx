@@ -7,7 +7,7 @@ import {
 } from "../../../../../app/app-actions";
 import { getSelectedCity, getFilteredCities } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
-import { InputNumber } from "antd";
+import { InputNumber, Slider } from "antd";
 import SelectSearch from 'react-select-search';
 import "./citiesSelector.css";
 
