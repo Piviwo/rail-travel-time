@@ -19,6 +19,7 @@
 .sideNavContainer h2{
   padding-top: 10px;  
   color:#2a2b40;
+  margin-bottom: 0;
 }
 
 .sideNavContainer .contentContainer {
@@ -40,7 +41,7 @@
 .contentContainer {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -79,4 +80,8 @@
 
 label.ant-radio-button-wrapper {
   align-items: center;
+}
+
+.ant-btn-default:disabled{
+  background-color: white !important;
 }

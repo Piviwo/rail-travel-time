@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 210px;
   gap: 20px;
 
 }
@@ -19,6 +18,7 @@
 }
 
 .select-search-container {
+  width: 365px;
   --select-search-background: #2a2b40;
   --select-search-border: #2a2b40;
   --select-search-selected: #89b4fa;
@@ -42,6 +42,7 @@
   justify-content: center;
   text-align: center;
   right: 0;
+  color:white;
 }
 
 .timeInfo span{
@@ -69,7 +70,7 @@
 .row {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
   align-items: center;
 }
 
@@ -104,10 +105,23 @@
   box-shadow: 0 0 0 4px #2A2B40 !important;
 }
 .cityInfo{
-  padding: 10px 15px;
+  padding: 0px 15px;
+  max-width:350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cityInfo span{
+  font-weight: 600;
+  font-size: large;
+  color:#2a2b40;
 }
 
 .city-list {
   list-style-type: none;
-  padding: 0;
+  background-color:#2a2b40;
+  padding: 10px;
+  font-size: medium;
+  border-radius: 5px;
 }
