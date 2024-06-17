@@ -1,11 +1,11 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCoordinates } from "../../../../../app/app-actions";
 import citiesData from "../../../../../data/RailTimeTable.json";
-import 'react-select-search/style.css'
+import "react-select-search/style.css";
 import "./citiesSelector.css";
 import { Button } from "antd";
-import SelectSearch from 'react-select-search';
+import SelectSearch from "react-select-search";
 
 export const SelectCities = () => {
   const [city1, setCity1] = useState("");
@@ -13,16 +13,16 @@ export const SelectCities = () => {
   const [averageTime, setAverageTime] = useState(null);
   const dispatch = useDispatch();
 
-  const citiesOptions1 = citiesData.map(city => ({
+  const citiesOptions1 = citiesData.map((city) => ({
     name: city.City,
     value: city.City,
-    disabled: city.City === city2
+    disabled: city.City === city2,
   }));
 
-  const citiesOptions2 = citiesData.map(city => ({
+  const citiesOptions2 = citiesData.map((city) => ({
     name: city.City,
     value: city.City,
-    disabled: city.City === city1
+    disabled: city.City === city1,
   }));
 
   const handleCity1Change = (selectedValue) => {
@@ -62,11 +62,11 @@ export const SelectCities = () => {
 
   function getColorBasedOnTime(averageTime) {
     if (averageTime < 5) {
-      return '#C0D99A';
+      return "#C0D99A";
     } else if (averageTime >= 5 && averageTime <= 10) {
-      return '#FFDF48';
+      return "#FFDF48";
     } else {
-      return '#F26444';
+      return "#F26444";
     }
   }
 
@@ -103,7 +103,10 @@ export const SelectCities = () => {
       {averageTime !== null && (
         <div className="timeInfo">
           <span>Average Time:</span>
-          <div className="time " style={{ backgroundColor: getColorBasedOnTime(averageTime) }}>
+          <div
+            className="time "
+            style={{ backgroundColor: getColorBasedOnTime(averageTime) }}
+          >
             <span>{averageTime}</span> hours
           </div>
         </div>

@@ -15,21 +15,9 @@
   color: #2a2b40;
   background-color: white;
   border-radius: 20px;
+  z-index: 100;
 }
 
-.popup-no-background div::before {
-  content: attr(data-city);
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: gray;
-  z-index: -1;
-  filter: blur(3px);
-  opacity: 0.8;
-  width: 100%;
-  height: auto;
-}
-
-.pin img{
+.pin img {
   height: 45px !important;
 }
