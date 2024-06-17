@@ -39,19 +39,8 @@ h2.departure_Timetable {
   height: 320px;
   overflow-x: hidden;
 }
-.departure_Timetable tbody{
-  height: 50px !important;
-  overflow-y: auto;
-}
-.departure_Timetable table{
-  height: 350px;
-}
 
-.departure_Timetable tbody{
-  overflow-y: auto;
-  height: 320px;
-  overflow-x: hidden;
-}
+
 .departure_Timetable td,
 .departure_Timetable th {
   padding-left: 1vmin;
