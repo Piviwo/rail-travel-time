@@ -6,6 +6,7 @@
   width: 100%;
   border-collapse: collapse;
   border-radius: 5px;
+  padding:2px;
 }
 h2.departure_Timetable {
   padding-bottom: 2vmin;
@@ -31,13 +32,16 @@ h2.departure_Timetable {
     width: 100%;
 }
 .departure_Timetable table{
-  height: 350px;
+  height:fit-content;
+  max-height: 350px;
 }
 
 .departure_Timetable tbody{
+  height:fit-content;
   overflow-y: auto;
-  height: 320px;
+  max-height: 320px;
   overflow-x: hidden;
+  padding-bottom: 10px;
 }
 .departure_Timetable td,
 .departure_Timetable th {
@@ -66,11 +70,11 @@ h2.departure_Timetable {
     display: none; /* Hide status column on smaller screens */
   }
   .departure_Timetable table{
-    height: 280px;
+    max-height: 280px;
   }
   
   .departure_Timetable tbody{
-    height: 260px;
+    max-height: 260px;
   }
 }
 @media (max-width: 1300px) {
@@ -78,14 +82,24 @@ h2.departure_Timetable {
       display: none; /* Hide status column on smaller screens */
     }
     .departure_Timetable table{
-      height: 240px;
+      max-height: 240px;
     }
     
     .departure_Timetable tbody{
-      height: 210px;
+      max-height: 210px;
     }
   }
 
 .select-search{
   color:white;
 }
+
+.column_1{
+  width: 40px;
+}
+.column_2{
+  width: 60px;
+}
+.column_3{
+  width: 130px;
+} 
