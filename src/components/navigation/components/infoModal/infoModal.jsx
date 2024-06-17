@@ -91,7 +91,7 @@ export const InfoModal = ({ isOpened, onCancel }) => {
         <div>
           <ul className="info-list">
             <li>Basemap: MapTiler API (License: OdbL)</li>
-            <li>Train travel times:</li>
+            <li>Train travel timetable: Timetables-API of Deutsche Bahn (DB Station&Service AG) under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license conditions. <a href="https://www.bahnhof.de/nutzungsbedingungen-web-bahnhofstafel">Service</a> by DB InfraGO AG.</li>
             <li>Train travel API:</li>
           </ul>
         </div>
