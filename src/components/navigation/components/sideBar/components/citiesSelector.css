@@ -128,11 +128,14 @@
 }
 
 .city-list {
+  position: relative;
   list-style-type: none;
   background-color: transparent;
   padding: 10px;
   font-size: medium;
   border-radius: 5px;
+  overflow: auto;
+  max-height: 40vh;
 }
 
 .city-list:has(li) {
