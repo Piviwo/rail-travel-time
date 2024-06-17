@@ -115,8 +115,9 @@ export const Timetable = () => {
     setStationName(value);
   };
 
-  const handleRowClick = (index, entry) => {
+  const handleRowClick = (entry, index) => {
     fetchDestinationCoordinates(entry.trainEnd);
+    setSelectedRow(index);
   };
 
   useEffect(() => {
@@ -174,8 +175,8 @@ export const Timetable = () => {
               {departures.map((entry, index) => (
                 <tr
                   key={index}
-                  className={selectedRow === index ? "selected" : ""}
-                  onClick={() => handleRowClick(index, entry)}
+                  className={selectedRow === index ? 'selected' : ''}
+                  onClick={() => handleRowClick(entry, index)}
                 >
                   <td className="column_1">{entry.departure}</td>
                   <td className="trainNumber column_2">{entry.trainNumber}</td>
