@@ -25,20 +25,18 @@ export const MapContainer = () => {
 
   useEffect(() => {
     if (
-      coordinates &&
-      coordinates[0] &&
-      coordinates[1] &&
+      coordinates?.length >= 2 &&
       mapRef?.current != null
     ) {
-      const minLat = Math.min(coordinates[0].latitude, coordinates[1].latitude);
-      const maxLat = Math.max(coordinates[0].latitude, coordinates[1].latitude);
+      const minLat = Math.min(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
+      const maxLat = Math.max(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
       const minLng = Math.min(
         coordinates[0].longitude,
-        coordinates[1].longitude
+        coordinates[coordinates.length-1].longitude
       );
       const maxLng = Math.max(
         coordinates[0].longitude,
-        coordinates[1].longitude
+        coordinates[coordinates.length-1].longitude
       );
 
       if (minLng && minLat && maxLng && maxLat) {
@@ -58,7 +56,7 @@ export const MapContainer = () => {
           }
         );
       }
-    } else if (
+    }else if (
       coordinates &&
       coordinates[0] &&
       coordinates?.length === 1 &&
@@ -300,16 +298,13 @@ export const MapContainer = () => {
           </Popup>
         </React.Fragment>
       );
-    } else if (coordinates?.length === 2 && mode === "timeTable") {
+    } else if (coordinates?.length >=2 && mode === "timeTable") {
       const sourceData = {
         type: "Feature",
         properties: {},
         geometry: {
-          type: "LineString",
-          coordinates: [
-            [coordinates[0].longitude, coordinates[0].latitude],
-            [coordinates[1].longitude, coordinates[1].latitude],
-          ],
+            type: "LineString",
+            coordinates: coordinates.map(coord => [coord.longitude, coord.latitude]),
         },
       };
 
@@ -328,28 +323,41 @@ export const MapContainer = () => {
               closeButton={false}
               closeOnClick={false}
               anchor="bottom-left"
-              className="popup-no-background"
+              className="popup-no-background1"
             >
               <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
             </Popup>
 
-            <Marker
-              latitude={coordinates[1].latitude}
-              longitude={coordinates[1].longitude}
-              color="#87ced6"
-              >
-                <img src={place2} alt="Marker 2" style={{ width: '40px', height: '40px' , transform: "translate(0%, -25%)" }} />
-              </Marker>
-            <Popup
-              latitude={coordinates[1].latitude}
-              longitude={coordinates[1].longitude}
-              closeButton={false}
-              closeOnClick={false}
-              anchor="bottom-left"
-              className="popup-no-background"
-            >
-              <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
-            </Popup>
+          {Object.entries(coordinates).map(([key, value], index) => (
+            <div key = {index}>
+              {index !== 0 && (
+                <>
+                  <Marker
+                    latitude={value.latitude}
+                    longitude={value.longitude}
+                    color="#87ced6"
+                  >
+                    <img
+                      src={place2}
+                      alt={Marker }
+                      style={{ width: '40px', height: '40px', transform: 'translate(0%, -25%)' }}
+                    />
+                  </Marker>
+                  <Popup
+                    latitude={value.latitude}
+                    longitude={value.longitude}
+                    closeButton={false}
+                    closeOnClick={false}
+                    anchor="bottom-left"
+                    className="popup-no-background2"
+                  >
+                    <div data-city={value.name}>{value.name}</div>
+                  </Popup>
+                </>
+              )}
+            </div>
+          ))}
+          
 
           <Source id={`route-timetable`} type="geojson" data={sourceData}>
             <Layer

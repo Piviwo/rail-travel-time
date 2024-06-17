@@ -194,10 +194,8 @@ export const getFinalData = async (stationName) => {
           element.ar._attributes.pt.slice(8, 10);
         kind = "intermediate_stop";
         return {
-          trainType,
           trainNumber,
           trainStatus,
-          trainLabel,
           trainPath,
           trainEnd: trainPath[trainPath.length - 1],
           trainOrigin,
@@ -209,10 +207,8 @@ export const getFinalData = async (stationName) => {
       }
       // return if only dp exists:
       return {
-        trainType,
         trainNumber,
         trainStatus,
-        trainLabel,
         trainPath,
         trainEnd: trainPath[trainPath.length - 1],
         departure,
@@ -244,10 +240,8 @@ export const getFinalData = async (stationName) => {
       }
       // return if only ar exists:
       return {
-        trainType,
         trainNumber,
         trainStatus,
-        trainLabel,
         trainOrigin,
         trainStart: trainOrigin[0],
         arrival,
