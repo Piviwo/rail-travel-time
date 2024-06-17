@@ -4,18 +4,18 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  width:100%;
+  width: 100%;
 }
 
 .button {
   width: 158px;
-  height:38px;
+  height: 38px;
 }
 
 .selectContainer {
   display: block;
   margin-bottom: 10px;
-  width: 100%
+  width: 100%;
 }
 
 .select-search-container {
@@ -29,12 +29,12 @@
 }
 
 .select-search-input:hover,
-.select-search-has-focus .select-search-select{
-  border-color:  #2a2b40 !important;
+.select-search-has-focus .select-search-select {
+  border-color: #2a2b40 !important;
 }
 
-.select-search-options{
-  padding-left:5px;
+.select-search-options {
+  padding-left: 5px;
 }
 
 .timeInfo {
@@ -47,23 +47,23 @@
   justify-content: center;
   text-align: center;
   right: 0;
-  color:white;
+  color: white;
 }
 
-.timeInfo span{
+.timeInfo span {
   font-size: 20px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.time, 
-.time span{
-  font-size:25px;
+.time,
+.time span {
+  font-size: 25px;
 }
 
 .time {
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   width: 150px;
   height: 150px;
@@ -88,27 +88,27 @@
   justify-content: center;
 }
 
-.label span{
-  color:#2a2b40;
-  font-weight:500;
+.label span {
+  color: #2a2b40;
+  font-weight: 500;
 }
 
 .inputNumber {
   max-width: 158px;
 }
 
-.ant-slider-track{
-  background-color: #2A2B40 !important;
+.ant-slider-track {
+  background-color: #2a2b40 !important;
 }
 
-.ant-slider-track:hover{
+.ant-slider-track:hover {
   background-color: gray !important;
 }
 
-.ant-slider-handle::after{
-  box-shadow: 0 0 0 4px #2A2B40 !important;
+.ant-slider-handle::after {
+  box-shadow: 0 0 0 4px #2a2b40 !important;
 }
-.cityInfo{
+.cityInfo {
   padding: 0px 15px;
   width: 100%;
   display: flex;
@@ -116,13 +116,13 @@
   justify-content: center;
 }
 
-.cityInfo span{
+.cityInfo span {
   font-weight: 600;
   font-size: large;
-  color:#2a2b40;
+  color: #2a2b40;
 }
-@media (max-width: 599px){
-  .cityInfo span{
+@media (max-width: 599px) {
+  .cityInfo span {
     font-size: 14px;
   }
 }
@@ -136,6 +136,9 @@
 }
 
 .city-list:has(li) {
-  
-  background-color:#2a2b40;
+  background-color: #2a2b40;
+}
+
+.cityInfo {
+  color: white;
 }
