@@ -5,27 +5,35 @@ import {
   setSelectedCity,
   setFilteredCities,
 } from "../../../../../app/app-actions";
-import { getSelectedCity, getFilteredCities } from "../../../../../app/app-selectors";
+import {
+  getSelectedCity,
+  getFilteredCities,
+} from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
-import { InputNumber, Slider } from "antd";
-import SelectSearch from 'react-select-search';
+import { Slider } from "antd";
+import SelectSearch from "react-select-search";
 import "./citiesSelector.css";
-
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
   let filteredCities = useSelector(getFilteredCities);
-  filteredCities = selectedCity && filteredCities ? filteredCities.filter(city => city.City !== selectedCity) : filteredCities;
-  
-  const cityWord_1 = filteredCities && filteredCities.length > 1 ? 'Cities' : 'City';
-  const cityWord_2 = filteredCities && filteredCities.length > 1 ? 'are' : 'is';
+  filteredCities =
+    selectedCity && filteredCities
+      ? filteredCities.filter((city) => city.City !== selectedCity)
+      : filteredCities;
+
+  const cityWord_1 =
+    filteredCities && filteredCities.length > 1 ? "Cities" : "City";
+  const cityWord_2 = filteredCities && filteredCities.length > 1 ? "are" : "is";
   const [travelTimeLimit, setTravelTimeLimit] = useState(5);
 
-  const cityOptions = citiesData.map(city => ({
-    value: city.City,
-    name: city.City
-  }));
+  const cityOptions = citiesData
+    .map((city) => ({
+      value: city.City,
+      name: city.City,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const handleCityChange = (value) => {
     dispatch(setSelectedCity(value));
@@ -63,19 +71,9 @@ export const SelectCity = () => {
           className="select-search"
           placeholder="From city"
         />
-
       </div>
       <div className="label">
         <span>in</span>
-        {/* <InputNumber
-          type="number"
-          value={travelTimeLimit}
-          onChange={handleTimeChange}
-          addonAfter={"hours"}
-          min={1}
-          max={100}
-          className="inputNumber"
-        /> */}
         <Slider
           min={1}
           max={30}
@@ -91,17 +89,24 @@ export const SelectCity = () => {
       </div>
       {selectedCity !== null && (
         <div className="cityInfo">
-          {
-            filteredCities && filteredCities.length === 0 ? (
-              <span>No city is reachable within {travelTimeLimit} hour from {selectedCity}!</span>
-            ) : (
-              <span>{cityWord_1} reachable from {selectedCity} within {travelTimeLimit} hours {cityWord_2}:</span>
-            )
-          }
+          {filteredCities && filteredCities.length === 0 ? (
+            <span>
+              No city is reachable within {travelTimeLimit} hour from{" "}
+              {selectedCity}!
+            </span>
+          ) : (
+            <span>
+              {cityWord_1} reachable from {selectedCity} within{" "}
+              {travelTimeLimit} hours {cityWord_2}:
+            </span>
+          )}
           <ul className="city-list">
-            {filteredCities && filteredCities.map((city, index) => (
-              <li key={index} className="city-item">{city.City}</li>
-            ))}
+            {filteredCities &&
+              filteredCities.map((city, index) => (
+                <li key={index} className="city-item">
+                  {city.City}
+                </li>
+              ))}
           </ul>
         </div>
       )}

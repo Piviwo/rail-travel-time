@@ -13,13 +13,17 @@ export const SelectCities = () => {
   const [averageTime, setAverageTime] = useState(null);
   const dispatch = useDispatch();
 
-  const citiesOptions1 = citiesData.map((city) => ({
+  const sortedCitiesData = citiesData.sort((a, b) =>
+    a.City.localeCompare(b.City)
+  );
+
+  const citiesOptions1 = sortedCitiesData.map((city) => ({
     name: city.City,
     value: city.City,
     disabled: city.City === city2,
   }));
 
-  const citiesOptions2 = citiesData.map((city) => ({
+  const citiesOptions2 = sortedCitiesData.map((city) => ({
     name: city.City,
     value: city.City,
     disabled: city.City === city1,
