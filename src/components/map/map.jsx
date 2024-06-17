@@ -216,7 +216,7 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background"
+            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -238,9 +238,9 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background"
+            className="popup-no-background2"
           >
-            <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+            <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
           </Popup>
           <Source
             id="route"
