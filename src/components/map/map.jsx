@@ -13,8 +13,8 @@ import { dataLayer } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
 import citiesData from "../../data/RailTimeTable.json";
-import place1 from '../../assets/place_1.svg';
-import place2 from '../../assets/place_2.svg';
+import place1 from "../../assets/place_1.svg";
+import place2 from "../../assets/place_2.svg";
 
 export const MapContainer = () => {
   const coordinates = useSelector(getCoordinates);
@@ -58,14 +58,16 @@ export const MapContainer = () => {
           }
         );
       }
-    } else if (coordinates &&
+    } else if (
+      coordinates &&
       coordinates[0] &&
       coordinates?.length === 1 &&
-      mapRef?.current != null) {
+      mapRef?.current != null
+    ) {
       if (coordinates[0].longitude && coordinates[0].latitude) {
         mapRef?.current.flyTo({
           center: [coordinates[0].longitude, coordinates[0].latitude],
-          zoom: 5.5
+          zoom: 5.5,
         });
       }
     }
@@ -129,42 +131,44 @@ export const MapContainer = () => {
           <React.Fragment key={city.City}>
             {city.City == selectedCity ? (
               <>
-                <Marker
-                  latitude={city.Latitude}
-                  longitude={city.Longitude}
-                >
-                  <img src={place1} alt="Origin Marker" style={{ width: '40px', height: '40px' }} />
+                <Marker latitude={city.Latitude} longitude={city.Longitude}>
+                  <img
+                    src={place1}
+                    alt="Origin Marker"
+                    style={{ width: "40px", height: "40px" }}
+                  />
                 </Marker>
                 <Popup
-                          latitude={city.Latitude}
-                          longitude={city.Longitude}
-                          closeButton={false}
-                          closeOnClick={false}
-                          anchor="bottom-left"
-                          className="popup-no-background1"
-                        >
-                        <div data-city={city.City}>{city.City}</div>
+                  latitude={city.Latitude}
+                  longitude={city.Longitude}
+                  closeButton={false}
+                  closeOnClick={false}
+                  anchor="bottom-left"
+                  className="popup-no-background1"
+                >
+                  <div data-city={city.City}>{city.City}</div>
                 </Popup>
               </>
             ) : (
-            <>
-              <Marker
-                latitude={city.Latitude}
-                longitude={city.Longitude}
-              >
-                <img src={place2} alt="Marker 2" style={{ width: '40px', height: '40px' }} />
-              </Marker>
-              <Popup
-              latitude={city.Latitude}
-              longitude={city.Longitude}
-              closeButton={false}
-              closeOnClick={false}
-              anchor="bottom-left"
-              className="popup-no-background2"
-              >
-              <div data-city={city.City}>{city.City}</div>
-              </Popup>
-            </>
+              <>
+                <Marker latitude={city.Latitude} longitude={city.Longitude}>
+                  <img
+                    src={place2}
+                    alt="Marker 2"
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                </Marker>
+                <Popup
+                  latitude={city.Latitude}
+                  longitude={city.Longitude}
+                  closeButton={false}
+                  closeOnClick={false}
+                  anchor="bottom-left"
+                  className="popup-no-background2"
+                >
+                  <div data-city={city.City}>{city.City}</div>
+                </Popup>
+              </>
             )}
 
             <Source id={`route-${city.City}`} type="geojson" data={sourceData}>
@@ -190,6 +194,90 @@ export const MapContainer = () => {
     return routesToDraw;
   }, [filteredCities, mode, selectedCity]);
 
+  const routesBetweenCities = useMemo(() => {
+    if (coordinates?.length === 2 && mode === "averageBetween") {
+      return (
+        <React.Fragment>
+          <Marker
+            latitude={coordinates[0].latitude}
+            longitude={coordinates[0].longitude}
+            offsetLeft={-20}
+            offsetTop={-40}
+          >
+            <img
+              src={place1}
+              alt="Marker 1"
+              style={{ width: "40px", height: "40px" }}
+            />
+          </Marker>
+          <Popup
+            latitude={coordinates[0].latitude}
+            longitude={coordinates[0].longitude}
+            closeButton={false}
+            closeOnClick={false}
+            anchor="bottom-left"
+            className="popup-no-background"
+          >
+            <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+          </Popup>
+          <Marker
+            latitude={coordinates[1].latitude}
+            longitude={coordinates[1].longitude}
+            offsetLeft={-20}
+            offsetTop={-40}
+          >
+            <img
+              src={place2}
+              alt="Marker 2"
+              style={{ width: "40px", height: "40px" }}
+            />
+          </Marker>
+          <Popup
+            latitude={coordinates[1].latitude}
+            longitude={coordinates[1].longitude}
+            closeButton={false}
+            closeOnClick={false}
+            anchor="bottom-left"
+            className="popup-no-background"
+          >
+            <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+          </Popup>
+          <Source
+            id="route"
+            type="geojson"
+            data={{
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: coordinates.map((coord) => [
+                  coord.longitude,
+                  coord.latitude,
+                ]),
+              },
+            }}
+          >
+            <Layer
+              id="route"
+              type="line"
+              source="route"
+              layout={{
+                "line-join": "round",
+                "line-cap": "round",
+              }}
+              paint={{
+                "line-color": "#f26444",
+                "line-width": 3,
+                "line-dasharray": [2, 2],
+              }}
+            />
+          </Source>
+        </React.Fragment>
+      );
+    }
+    return null;
+  }, [coordinates, mode]);
+
   const timeTableMarker = useMemo(() => {
     if (coordinates?.length === 1 && mode === "timeTable") {
       return (
@@ -197,8 +285,7 @@ export const MapContainer = () => {
           <Marker
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
-          >
-          </Marker>
+          ></Marker>
           <Popup
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
@@ -298,60 +385,10 @@ export const MapContainer = () => {
       <Source type="geojson" data={railsData}>
         <Layer {...dataLayer} />
       </Source>
-      {coordinates?.length === 2 && mode == "averageBetween" && (
-        <>
-          <Marker
-            latitude={coordinates[0].latitude}
-            longitude={coordinates[0].longitude}
-            offsetLeft={-20}
-            offsetTop={-40}
-          >
-            <img src={place1} alt="Marker 1" style={{ width: '40px', height: '40px' }} />
-          </Marker>
-          <Marker
-            latitude={coordinates[1].latitude}
-            longitude={coordinates[1].longitude}
-            offsetLeft={-20}
-            offsetTop={-40}
-          >
-            <img src={place2} alt="Marker 2" style={{ width: '40px', height: '40px' }} />
-          </Marker>
-          <Source
-            id="route"
-            type="geojson"
-            data={{
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "LineString",
-                coordinates: coordinates.map((coord) => [
-                  coord.longitude,
-                  coord.latitude,
-                ]),
-              },
-            }}
-          >
-            <Layer
-              id="route"
-              type="line"
-              source="route"
-              layout={{
-                "line-join": "round",
-                "line-cap": "round",
-              }}
-              paint={{
-                "line-color": "#f26444",
-                "line-width": 3,
-                "line-dasharray": [2, 2],
-              }}
-            />
-          </Source>
-        </>
-      )}
 
       {timeTableMarker}
-
       {routesFromCity}
+      {routesBetweenCities}
     </Map>
   );
 };
