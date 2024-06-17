@@ -318,7 +318,7 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background"
+            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -360,7 +360,7 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background"
+            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -386,7 +386,7 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background"
+            className="popup-no-background2"
           >
             <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
           </Popup>
@@ -401,7 +401,7 @@ export const MapContainer = () => {
                 "line-cap": "round",
               }}
               paint={{
-                "line-color": "#2a2b40",
+                "line-color": "#f26444",
                 "line-width": 3,
                 "line-dasharray": [2, 2],
               }}
