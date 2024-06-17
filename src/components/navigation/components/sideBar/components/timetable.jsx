@@ -10,7 +10,7 @@ import SelectSearch from 'react-select-search';
 
 
 export const Timetable = () => {
-  const [stationName, setStationName] = useState("Frankfurt (Main) Hbf");
+  const [stationName, setStationName] = useState("Dortmund Hbf");
   const [timeTable, setTimeTable] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const cityEntries = Object.entries(citiesLocations.name);
@@ -187,7 +187,7 @@ export const Timetable = () => {
             <thead>
               <tr>
                 <th>Time</th>
-                <th>Train Nr</th>
+                <th>No.</th>
                 <th>Destination</th>
                 <th className="statusColumn">Status</th>
               </tr>
