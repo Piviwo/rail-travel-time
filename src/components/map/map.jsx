@@ -9,7 +9,7 @@ import {
   getFilteredCities,
   getMode,
 } from "../../app/app-selectors";
-import { dataLayer } from "./map-constants";
+import { dataLayer, customStyle } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
 import citiesData from "../../data/RailTimeTable.json";
@@ -22,6 +22,7 @@ export const MapContainer = () => {
   const mode = useSelector(getMode);
   const filteredCities = useSelector(getFilteredCities);
   const mapRef = useRef();
+  const countrySymbols = customStyle.layers[0];
 
   useEffect(() => {
     if (
@@ -431,10 +432,13 @@ export const MapContainer = () => {
       <Source type="geojson" data={railsData}>
         <Layer {...dataLayer} />
       </Source>
-
       {timeTableMarker}
       {routesFromCity}
       {routesBetweenCities}
+
+      <Source type="vector" url={customStyle.sources.openmaptiles.url}>
+        <Layer {...countrySymbols} />
+      </Source>
     </Map>
   );
 };
