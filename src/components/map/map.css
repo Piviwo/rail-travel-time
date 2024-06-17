@@ -16,7 +16,6 @@
   color: white;
   background-color: #f26444;
   border-radius: 20px;
-  z-index: 100;
 }
 
 .popup-no-background1 div::before {
