@@ -10,7 +10,7 @@ import SelectSearch from 'react-select-search';
 
 
 export const Timetable = () => {
-  const [stationName, setStationName] = useState("Dortmund Hbf");
+  const [stationName, setStationName] = useState("Köln Hbf");
   const [timeTable, setTimeTable] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const cityEntries = Object.entries(citiesLocations.name);
@@ -18,7 +18,7 @@ export const Timetable = () => {
   const cityLongitudes = Object.entries(citiesLocations.longitude);
 
   const cityOptions = cityEntries.map(city => ({
-    value: city[0],
+    value: city[1],
     name: city[1]
   }));
 
@@ -53,12 +53,6 @@ export const Timetable = () => {
 
   const dispatch = useDispatch();
 
- 
-  
-  //   const index = findIndexByName(e.target.value);
-  //   setCityIndex(index);
-  //   const coordinates = index ? getCoordinates(index) : null;
-  
 
   const fetchStationCoordinates = async () => {
     try {
@@ -167,17 +161,6 @@ export const Timetable = () => {
           className="select-search"
           placeholder="From city"
         />
-          {/* <p>from</p>
-          <select value={stationName} onChange={handleStationChange} className="selectItem">
-            {cityEntries.map(([index, cityName]) => (
-              <option
-                key={index}
-                value={cityName}
-              >
-                {cityName}
-              </option>
-            ))}
-          </select> */}
         </label>
       </div>
       <div className="departure_Timetable">
