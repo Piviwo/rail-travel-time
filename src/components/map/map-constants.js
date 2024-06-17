@@ -13,8 +13,8 @@ export const dataLayer = {
         ["==", ["get", "disp_scale"], "1:80m"],
         2,
         ["==", ["get", "disp_scale"], "1:40m"],
-        0.5,
-        0.5,
+        0,
+        0,
       ],
       10,
       [
