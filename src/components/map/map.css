@@ -39,6 +39,7 @@
   color: #2a2b40;
   background-color: #c0d99a;
   border-radius: 20px;
+
 }
 
 .popup-no-background2 div::before {
@@ -54,6 +55,31 @@
   height: auto;
 }
 
+.popup-no-background3 div {
+  position: relative;
+  font-size: 12px;
+  font-family: Montserrat;
+  font-weight: 500; 
+  color: #2a2b40;
+  background-color: #c0d99a;
+  border-radius: 20px;
+  padding-right: 10px;
+}
+
+.popup-no-background3 div::before {
+  content: attr(data-city);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: gray;
+  z-index: -1;
+  filter: blur(3px);
+  opacity: 0.8;
+  width: 100%;
+  height: auto;
+}
+
 .pin img{
   height: 45px !important;
 }
+
