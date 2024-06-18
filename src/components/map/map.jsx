@@ -22,6 +22,7 @@ export const MapContainer = () => {
   const mode = useSelector(getMode);
   const filteredCities = useSelector(getFilteredCities);
   const mapRef = useRef();
+  const countrySymbols = customStyle.layers[0];
   const [popupInfo, setPopupInfo] = useState(null);
 
   const handleMarkerClick = (lat,lon,name) => {
