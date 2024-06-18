@@ -8,8 +8,8 @@ import { Button } from "antd";
 import SelectSearch from "react-select-search";
 
 export const SelectCities = () => {
-  const [city1, setCity1] = useState("");
-  const [city2, setCity2] = useState("");
+  const [city1, setCity1] = useState("Vienna");
+  const [city2, setCity2] = useState("Berlin");
   const [averageTime, setAverageTime] = useState(null);
   const dispatch = useDispatch();
 

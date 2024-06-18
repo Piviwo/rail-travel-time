@@ -13,6 +13,7 @@ import { dataLayer, customStyle } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
 import berlinViennaRoute from "../../../data/railroadBerlinVienna.json";
+import budapestViennaRoute from "../../../data/railroadBudapestVienna.json";
 import citiesData from "../../data/RailTimeTable.json";
 import place1 from "../../assets/place_1.svg";
 import place2 from "../../assets/place_2.svg";
@@ -312,7 +313,25 @@ export const MapContainer = () => {
                 paint={{
                   "line-color": "#f26444",
                   "line-width": 3,
-                  "line-dasharray": [2, 2],
+                }}
+              />
+            </Source>
+          ) : (coordinates[1].name === "Vienna" &&
+              coordinates[0].name === "Budapest") ||
+            (coordinates[0].name === "Vienna" &&
+              coordinates[1].name === "Budapest") ? (
+            <Source id="route" type="geojson" data={budapestViennaRoute}>
+              <Layer
+                id="route"
+                type="line"
+                source="route"
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "#f26444",
+                  "line-width": 3,
                 }}
               />
             </Source>
