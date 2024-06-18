@@ -21,7 +21,10 @@ export const setFilteredCities = createAction(
   })
 );
 
-
 export const setMode = createAction(`appState/setMode`, (payload) => ({
+  payload,
+}));
+
+export const setSideNav = createAction(`appState/setSideNav`, (payload) => ({
   payload,
 }));

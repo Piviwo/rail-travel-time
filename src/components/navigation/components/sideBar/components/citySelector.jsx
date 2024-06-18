@@ -8,6 +8,7 @@ import {
 import {
   getSelectedCity,
   getFilteredCities,
+  getSideNav
 } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
 import { Slider } from "antd";
@@ -16,6 +17,7 @@ import "./citiesSelector.css";
 
 export const SelectCity = () => {
   const dispatch = useDispatch();
+  const sideNavOpen = useSelector(getSideNav);
   const selectedCity = useSelector(getSelectedCity);
   let filteredCities = useSelector(getFilteredCities);
   filteredCities =
@@ -79,10 +81,12 @@ export const SelectCity = () => {
           max={30}
           value={travelTimeLimit}
           onChange={handleTimeChange}
-          tooltip={{
+          tooltip={sideNavOpen ? {
             formatter: (value) => `${value} hours`,
             open: true,
             placement: "bottom",
+          } : {
+            open: false,
           }}
           style={{ width: "100%" }}
         />

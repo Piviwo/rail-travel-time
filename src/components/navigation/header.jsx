@@ -3,25 +3,30 @@ import { useState } from "react";
 import { InfoModal } from "./components/infoModal";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { CloseOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { getSideNav } from "../../app/app-selectors";
+import { setSideNav } from "../../app/app-actions";
 
 import "./navigation.css";
 
-export const Header = ({ toggleMenu, isMenuOpen }) => {
+export const Header = () => {
   const [isInfoModalOpen, setInfoModalOpen] = useState(false);
+
+  const sideNavOpen = useSelector(getSideNav);
+  const dispatch = useDispatch();
+
+  const toggleMenu = (event) => {
+    dispatch(setSideNav(!sideNavOpen));
+  };
 
   return (
     <>
       <div className="header">
         <nav className="topNavBar">
           <div className="topLeftNav">
-            {typeof isMenuOpen !== "undefined" ? (
               <div className="burgerMenu" onClick={toggleMenu}>
-                {isMenuOpen ? <CloseOutlined className="closeIcon" /> : "☰"}
+                {sideNavOpen ? <CloseOutlined className="closeIcon" /> : "☰"}
               </div>
-            ) : (
-              <div></div>
-            )}
             <NavLink to="/" className="topNavLink homeLink">
               Rail Travel Time
             </NavLink>
@@ -54,9 +59,4 @@ export const Header = ({ toggleMenu, isMenuOpen }) => {
       )}
     </>
   );
-};
-
-Header.propTypes = {
-  toggleMenu: PropTypes.func,
-  isMenuOpen: PropTypes.bool,
 };
