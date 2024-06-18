@@ -178,10 +178,10 @@ export const Timetable = () => {
                   className={selectedRow === index ? 'selected' : ''}
                   onClick={() => handleRowClick(entry, index)}
                 >
-                  <td className="column_1">{entry.departure}</td>
-                  <td className="trainNumber column_2">{entry.trainNumber}</td>
-                  <td className="column_3">{entry.trainEnd}</td>
-                  <td className="statusColumn column_4">{entry.trainStatus}</td>
+                  <td>{entry.departure}</td>
+                  <td className="trainNumber">{entry.trainNumber}</td>
+                  <td >{entry.trainEnd}</td>
+                  <td className="statusColumn">{entry.trainStatus}</td>
                 </tr>
               ))}
             </tbody>
