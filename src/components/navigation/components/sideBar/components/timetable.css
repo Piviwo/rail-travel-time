@@ -19,10 +19,7 @@ h2.departure_Timetable {
   font-size: 18px;
   font-weight: 400;
 }
-.trainNumber {
-  color: #2a2b40;
-  background-color: #fff;
-}
+
 .departure_Timetable tbody,
 .departure_Timetable thead {
     display: block;
