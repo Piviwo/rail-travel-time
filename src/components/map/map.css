@@ -78,7 +78,9 @@
   width: 100%;
   height: auto;
 }
-
+.maplibregl-popup-close-button:hover{
+  background: 0;
+}
 .pin img{
   height: 45px !important;
 }
