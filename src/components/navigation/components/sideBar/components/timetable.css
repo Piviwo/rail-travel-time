@@ -41,8 +41,9 @@ h2.departure_Timetable {
   overflow-y: auto;
   max-height: 320px;
   overflow-x: hidden;
-  padding-bottom: 10px;
 }
+
+
 
 
 .departure_Timetable td,
