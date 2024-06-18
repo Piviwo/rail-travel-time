@@ -484,7 +484,6 @@ export const MapContainer = () => {
       {popuptimtablepath}
       {routesFromCity}
       {routesBetweenCities}
-
       <Source type="vector" url={customStyle.sources.openmaptiles.url}>
         <Layer {...countrySymbols} />
       </Source>
