@@ -3,7 +3,6 @@ import { useState } from "react";
 import { InfoModal } from "./components/infoModal";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { CloseOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getSideNav } from "../../app/app-selectors";
 import { setSideNav } from "../../app/app-actions";

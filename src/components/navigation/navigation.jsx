@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Header } from "./header";
 import { SideBar } from "./components";
 import "./navigation.css";

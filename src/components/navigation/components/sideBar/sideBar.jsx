@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
 import "./sideBar.css";
 
 import { SideContent } from "./sideContent";
 import { Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getMode } from "../../../../app/app-selectors";
+import { getMode, getSideNav } from "../../../../app/app-selectors";
 import { setMode } from "../../../../app/app-actions";
-import { getSideNav } from "../../../../app/app-selectors";
 
 export const SideBar = () => {
   const sideNavOpen = useSelector(getSideNav);
