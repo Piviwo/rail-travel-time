@@ -269,7 +269,10 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background1"
+<<<<<<< HEAD
             className="popup-no-background1"
+=======
+>>>>>>> f708de73d62fd7885480da1f5569a5e686004b2a
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -296,10 +299,15 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background2"
+<<<<<<< HEAD
             className="popup-no-background2"
           >
             <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
             <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
+=======
+          >
+            <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
+>>>>>>> f708de73d62fd7885480da1f5569a5e686004b2a
           </Popup>
           <Source
             id="route"
@@ -354,7 +362,10 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background1"
+<<<<<<< HEAD
             className="popup-no-background1"
+=======
+>>>>>>> f708de73d62fd7885480da1f5569a5e686004b2a
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -371,6 +382,7 @@ export const MapContainer = () => {
       };
 
       return (
+<<<<<<< HEAD
         <React.Fragment key={coordinates[0].name}>
           <Marker
             latitude={coordinates[0].latitude}
@@ -397,6 +409,26 @@ export const MapContainer = () => {
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
+=======
+          <React.Fragment key={coordinates[0].name}>
+            <Marker
+              latitude={coordinates[0].latitude}
+              longitude={coordinates[0].longitude}
+              color="#87ced6"
+            >
+             <img src={place1} alt="Origin Marker" style={{ width: '40px', height: '40px', transform: "translate(0%, -25%)", }} />   
+                </Marker>
+            <Popup
+              latitude={coordinates[0].latitude}
+              longitude={coordinates[0].longitude}
+              closeButton={false}
+              closeOnClick={false}
+              anchor="bottom-left"
+              className="popup-no-background1"
+            >
+              <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
+            </Popup>
+>>>>>>> f708de73d62fd7885480da1f5569a5e686004b2a
 
             <Marker
               latitude={coordinates[coordinates.length-1].latitude}
