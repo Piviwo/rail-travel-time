@@ -9,7 +9,7 @@
   background-color: #87ced6;
   visibility: visible;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.6s ease, z-index 0s linear 0.6s;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@
 .sideNavContainer.open {
   z-index: 10;
   opacity: 1;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.6s ease, z-index 0s linear 0s;
 }
 
 .sideNavContainer h2{
