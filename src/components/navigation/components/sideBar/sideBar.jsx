@@ -28,7 +28,7 @@ export const SideBar = ({ isMenuOpen }) => {
             <Radio.Button value="timeTable">Timetable</Radio.Button>
           </Radio.Group>
         </div>
-        <SideContent />
+        <SideContent isMenuOpen={isMenuOpen}/>
       </div>
     </div>
   );

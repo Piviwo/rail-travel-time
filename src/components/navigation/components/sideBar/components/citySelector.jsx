@@ -14,7 +14,7 @@ import { Slider } from "antd";
 import SelectSearch from "react-select-search";
 import "./citiesSelector.css";
 
-export const SelectCity = () => {
+export const SelectCity = ({isMenuOpen}) => {
   const dispatch = useDispatch();
   const selectedCity = useSelector(getSelectedCity);
   let filteredCities = useSelector(getFilteredCities);
@@ -79,10 +79,12 @@ export const SelectCity = () => {
           max={30}
           value={travelTimeLimit}
           onChange={handleTimeChange}
-          tooltip={{
+          tooltip={isMenuOpen ? {
             formatter: (value) => `${value} hours`,
             open: true,
             placement: "bottom",
+          } : {
+            open: false,
           }}
           style={{ width: "100%" }}
         />
