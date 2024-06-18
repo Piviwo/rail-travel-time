@@ -26,20 +26,18 @@ export const MapContainer = () => {
 
   useEffect(() => {
     if (
-      coordinates &&
-      coordinates[0] &&
-      coordinates[1] &&
+      coordinates?.length >= 2 &&
       mapRef?.current != null
     ) {
-      const minLat = Math.min(coordinates[0].latitude, coordinates[1].latitude);
-      const maxLat = Math.max(coordinates[0].latitude, coordinates[1].latitude);
+      const minLat = Math.min(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
+      const maxLat = Math.max(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
       const minLng = Math.min(
         coordinates[0].longitude,
-        coordinates[1].longitude
+        coordinates[coordinates.length-1].longitude
       );
       const maxLng = Math.max(
         coordinates[0].longitude,
-        coordinates[1].longitude
+        coordinates[coordinates.length-1].longitude
       );
 
       if (minLng && minLat && maxLng && maxLat) {
@@ -59,7 +57,7 @@ export const MapContainer = () => {
           }
         );
       }
-    } else if (
+    }else if (
       coordinates &&
       coordinates[0] &&
       coordinates?.length === 1 &&
@@ -317,16 +315,13 @@ export const MapContainer = () => {
           </Popup>
         </React.Fragment>
       );
-    } else if (coordinates?.length === 2 && mode === "timeTable") {
+    } else if (coordinates?.length >=2 && mode === "timeTable") {
       const sourceData = {
         type: "Feature",
         properties: {},
         geometry: {
-          type: "LineString",
-          coordinates: [
-            [coordinates[0].longitude, coordinates[0].latitude],
-            [coordinates[1].longitude, coordinates[1].latitude],
-          ],
+            type: "LineString",
+            coordinates: coordinates.map(coord => [coord.longitude, coord.latitude]),
         },
       };
 
