@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from "react";
+import React, { useRef, useEffect, useMemo, useState } from "react";
 import Map, { Marker, Source, Layer, Popup } from "react-map-gl";
 import maplibre from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -22,8 +22,47 @@ export const MapContainer = () => {
   const mode = useSelector(getMode);
   const filteredCities = useSelector(getFilteredCities);
   const mapRef = useRef();
-  const countrySymbols = customStyle.layers[0];
+  const [popupInfo, setPopupInfo] = useState(null);
 
+  const handleMarkerClick = (lat,lon,name) => {
+    setPopupInfo({
+      latitude: lat,
+      longitude: lon,
+      name: name
+    });
+  };
+  
+
+  const handleClosePopup = () => {
+    setPopupInfo(null);
+  };
+
+
+  const popuptimtablepath = useMemo(() => {
+    if(popupInfo){
+      return (
+        <React.Fragment>
+          
+          <Popup
+            key={`popup-${popupInfo.name}`}
+            latitude={popupInfo.latitude}
+            longitude={popupInfo.longitude}
+            closeButton={true}
+            closeOnClick={false}
+            onClose={handleClosePopup}
+            anchor="bottom-left"
+            className="popup-no-background3"
+          >
+            <div data-city={popupInfo.name}>{popupInfo.name}</div>
+          </Popup>
+        
+        </React.Fragment>
+      );
+    }
+      return null;
+    
+    
+  }, [popupInfo]);
   useEffect(() => {
     if (
       coordinates?.length >= 2 &&
@@ -228,6 +267,7 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background1"
+            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -254,7 +294,9 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background2"
+            className="popup-no-background2"
           >
+            <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
             <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
           </Popup>
           <Source
@@ -310,6 +352,7 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background1"
+            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -353,31 +396,48 @@ export const MapContainer = () => {
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
 
-          <Marker
-            latitude={coordinates[1].latitude}
-            longitude={coordinates[1].longitude}
-            color="#87ced6"
-          >
-            <img
-              src={place2}
-              alt="Marker 2"
-              style={{
-                width: "40px",
-                height: "40px",
-                transform: "translate(0%, -25%)",
-              }}
-            />
-          </Marker>
-          <Popup
-            latitude={coordinates[1].latitude}
-            longitude={coordinates[1].longitude}
-            closeButton={false}
-            closeOnClick={false}
-            anchor="bottom-left"
-            className="popup-no-background2"
-          >
-            <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
-          </Popup>
+            <Marker
+              latitude={coordinates[coordinates.length-1].latitude}
+              longitude={coordinates[coordinates.length-1].longitude}
+              color="#87ced6"
+            >
+             <img src={place2} alt="Dest Marker" style={{ width: '40px', height: '40px', transform: "translate(0%, -25%)", }} />   
+                </Marker>
+
+            <Popup
+              latitude={coordinates[coordinates.length-1].latitude}
+              longitude={coordinates[coordinates.length-1].longitude}
+              closeButton={false}
+              closeOnClick={false}
+              anchor="bottom-left"
+              className="popup-no-background2"
+            >
+              <div data-city={coordinates[coordinates.length-1].name}>{coordinates[coordinates.length-1].name}</div>
+            </Popup>
+
+            <>
+            {Object.entries(coordinates).map(([key, value], index) => (
+              <div key={`markerpopupdiv-${index}-${key}`}>
+                 {index !== 0 && index !=coordinates.length-1  && (
+                  <>
+                    <Marker
+                      key={`marker-${index}`}
+                      latitude={value.latitude}
+                      longitude={value.longitude}
+                      onClick={() => handleMarkerClick(value.latitude, value.longitude, value.name)}
+                    >
+                      <img
+                        src={place2}
+                        alt="Marker"
+                        style={{ width: '40px', height: '40px', transform: 'translate(0%, -25%)', cursor: 'pointer' }}
+                      />
+                    </Marker>
+                  </>
+                )}
+              </div>
+            ))}
+            
+          </>
 
           <Source id={`route-timetable`} type="geojson" data={sourceData}>
             <Layer
@@ -420,6 +480,7 @@ export const MapContainer = () => {
         <Layer {...dataLayer} />
       </Source>
       {timeTableMarker}
+      {popuptimtablepath}
       {routesFromCity}
       {routesBetweenCities}
 
