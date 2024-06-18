@@ -20,7 +20,6 @@ export const Timetable = () => {
     name: city[1],
   }));
 
-  //const normalizeString = (str) => str.trim().replace(/\s+/g, '');
 
   const findDestIndexByName = (name) => {
     const entry = cityEntries.find(([index, cityName]) => {
@@ -72,34 +71,42 @@ export const Timetable = () => {
     }
   };
 
-  const fetchDestinationCoordinates = async (destName) => {
+ 
+ 
+
+  const fetchDestinationCoordinates = async (trainPath) => {
     try {
-      const index = findIndexByName(stationName);
-      const coordData = index ? getCoordinates(index) : null;
-      const indexdest = findDestIndexByName(destName);
-      try {
-        const coordDatadest = getCoordinates(indexdest);
-        dispatch(
-          setCoordinates([
+        const index = findIndexByName(stationName);
+        const coordData = index ? getCoordinates(index) : null;
+        const coordinates = [
             {
-              name: stationName,
-              latitude: coordData.lat,
-              longitude: coordData.lon,
+                name: stationName,
+                latitude: coordData?.lat,
+                longitude: coordData?.lon,
             },
-            {
-              name: destName,
-              latitude: coordDatadest.lat,
-              longitude: coordDatadest.lon,
-            },
-          ])
-        );
-      } catch (err) {
-        console.error("Failed to fetch coordinates for destination", err);
-      }
+        ];
+
+        for (const path of trainPath) {
+            try {
+                const indexdest = findDestIndexByName(path);
+                const coordDatadest = getCoordinates(indexdest);
+                coordinates.push({
+                    name: path,
+                    latitude: coordDatadest.lat,
+                    longitude: coordDatadest.lon,
+                });
+            } catch (err) {
+                console.error(`Error fetching coordinates for ${path}:`, err);
+            }
+        }
+
+        dispatch(setCoordinates(coordinates));
     } catch (err) {
-      console.error("Failed to fetch coordinates", err);
+        console.error("Failed to fetch coordinates", err);
     }
-  };
+};
+
+
 
   const fetchTimeTable = async () => {
     try {
@@ -116,7 +123,7 @@ export const Timetable = () => {
   };
 
   const handleRowClick = (entry, index) => {
-    fetchDestinationCoordinates(entry.trainEnd);
+    fetchDestinationCoordinates(entry.trainPath);
     setSelectedRow(index);
   };
 
@@ -178,10 +185,10 @@ export const Timetable = () => {
                   className={selectedRow === index ? 'selected' : ''}
                   onClick={() => handleRowClick(entry, index)}
                 >
-                  <td className="column_1">{entry.departure}</td>
-                  <td className="trainNumber column_2">{entry.trainNumber}</td>
-                  <td className="column_3">{entry.trainEnd}</td>
-                  <td className="statusColumn column_4">{entry.trainStatus}</td>
+                  <td>{entry.departure}</td>
+                  <td className="trainNumber">{entry.trainNumber}</td>
+                  <td >{entry.trainEnd}</td>
+                  <td className="statusColumn">{entry.trainStatus}</td>
                 </tr>
               ))}
             </tbody>
