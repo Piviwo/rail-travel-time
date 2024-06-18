@@ -4,11 +4,13 @@ import {
   setFilteredCities,
   setSelectedCity,
   setMode,
+  setSideNav
 } from "./app-actions";
 
 const initialState = {
   mode: "averageBetween",
   selectedCity: "Vienna",
+  sideNavOpen: true,
 };
 
 export const appSlice = createSlice({
@@ -31,6 +33,10 @@ export const appSlice = createSlice({
     builder.addCase(setMode, (state, action) => ({
       ...state,
       mode: action.payload,
+    }));
+    builder.addCase(setSideNav, (state, action) => ({
+      ...state,
+      sideNavOpen: action.payload,
     }));
   },
 });

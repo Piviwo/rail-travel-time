@@ -8,14 +8,16 @@ import {
 import {
   getSelectedCity,
   getFilteredCities,
+  getSideNav
 } from "../../../../../app/app-selectors";
 import "./citiesSelector.css";
 import { Slider } from "antd";
 import SelectSearch from "react-select-search";
 import "./citiesSelector.css";
 
-export const SelectCity = ({isMenuOpen}) => {
+export const SelectCity = () => {
   const dispatch = useDispatch();
+  const sideNavOpen = useSelector(getSideNav);
   const selectedCity = useSelector(getSelectedCity);
   let filteredCities = useSelector(getFilteredCities);
   filteredCities =
@@ -79,7 +81,7 @@ export const SelectCity = ({isMenuOpen}) => {
           max={30}
           value={travelTimeLimit}
           onChange={handleTimeChange}
-          tooltip={isMenuOpen ? {
+          tooltip={sideNavOpen ? {
             formatter: (value) => `${value} hours`,
             open: true,
             placement: "bottom",

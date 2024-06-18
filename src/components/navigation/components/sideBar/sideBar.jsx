@@ -6,8 +6,10 @@ import { Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getMode } from "../../../../app/app-selectors";
 import { setMode } from "../../../../app/app-actions";
+import { getSideNav } from "../../../../app/app-selectors";
 
-export const SideBar = ({ isMenuOpen }) => {
+export const SideBar = () => {
+  const sideNavOpen = useSelector(getSideNav);
   const mode = useSelector(getMode);
   const dispatch = useDispatch();
 
@@ -18,7 +20,7 @@ export const SideBar = ({ isMenuOpen }) => {
   };
 
   return (
-    <div className={`sideNavContainer ${isMenuOpen ? "open" : ""}`}>
+    <div className={`sideNavContainer ${sideNavOpen ? "open" : ""}`}>
       <div className="contentContainer">
         <h2>Select your travel route</h2>
         <div className="radioContainer">
@@ -28,12 +30,8 @@ export const SideBar = ({ isMenuOpen }) => {
             <Radio.Button value="timeTable">Timetable</Radio.Button>
           </Radio.Group>
         </div>
-        <SideContent isMenuOpen={isMenuOpen}/>
+        <SideContent/>
       </div>
     </div>
   );
-};
-
-SideBar.propTypes = {
-  isMenuOpen: PropTypes.bool,
 };
