@@ -12,6 +12,7 @@ import {
 import { dataLayer, customStyle } from "./map-constants";
 import "./map.css";
 import railsData from "../../../data/railroads.json";
+import berlinViennaRoute from "../../../data/railroadBerlinVienna.json";
 import citiesData from "../../data/RailTimeTable.json";
 import place1 from "../../assets/place_1.svg";
 import place2 from "../../assets/place_2.svg";
@@ -25,25 +26,22 @@ export const MapContainer = () => {
   const countrySymbols = customStyle.layers[0];
   const [popupInfo, setPopupInfo] = useState(null);
 
-  const handleMarkerClick = (lat,lon,name) => {
+  const handleMarkerClick = (lat, lon, name) => {
     setPopupInfo({
       latitude: lat,
       longitude: lon,
-      name: name
+      name: name,
     });
   };
-  
 
   const handleClosePopup = () => {
     setPopupInfo(null);
   };
 
-
   const popuptimtablepath = useMemo(() => {
-    if(popupInfo){
+    if (popupInfo) {
       return (
         <React.Fragment>
-          
           <Popup
             key={`popup-${popupInfo.name}`}
             latitude={popupInfo.latitude}
@@ -56,29 +54,29 @@ export const MapContainer = () => {
           >
             <div data-city={popupInfo.name}>{popupInfo.name}</div>
           </Popup>
-        
         </React.Fragment>
       );
     }
-      return null;
-    
-    
+    return null;
   }, [popupInfo]);
-  
+
   useEffect(() => {
-    if (
-      coordinates?.length >= 2 &&
-      mapRef?.current != null
-    ) {
-      const minLat = Math.min(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
-      const maxLat = Math.max(coordinates[0].latitude, coordinates[coordinates.length-1].latitude);
+    if (coordinates?.length >= 2 && mapRef?.current != null) {
+      const minLat = Math.min(
+        coordinates[0].latitude,
+        coordinates[coordinates.length - 1].latitude
+      );
+      const maxLat = Math.max(
+        coordinates[0].latitude,
+        coordinates[coordinates.length - 1].latitude
+      );
       const minLng = Math.min(
         coordinates[0].longitude,
-        coordinates[coordinates.length-1].longitude
+        coordinates[coordinates.length - 1].longitude
       );
       const maxLng = Math.max(
         coordinates[0].longitude,
-        coordinates[coordinates.length-1].longitude
+        coordinates[coordinates.length - 1].longitude
       );
 
       if (minLng && minLat && maxLng && maxLat) {
@@ -98,7 +96,7 @@ export const MapContainer = () => {
           }
         );
       }
-    }else if (
+    } else if (
       coordinates &&
       coordinates[0] &&
       coordinates?.length === 1 &&
@@ -269,7 +267,6 @@ export const MapContainer = () => {
             closeOnClick={false}
             anchor="bottom-left"
             className="popup-no-background1"
-            className="popup-no-background1"
           >
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
@@ -299,36 +296,58 @@ export const MapContainer = () => {
           >
             <div data-city={coordinates[1].name}>{coordinates[1].name}</div>
           </Popup>
-          <Source
-            id="route"
-            type="geojson"
-            data={{
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "LineString",
-                coordinates: coordinates.map((coord) => [
-                  coord.longitude,
-                  coord.latitude,
-                ]),
-              },
-            }}
-          >
-            <Layer
+          {(coordinates[1].name === "Vienna" &&
+            coordinates[0].name === "Berlin") ||
+          (coordinates[0].name === "Vienna" &&
+            coordinates[1].name === "Berlin") ? (
+            <Source id="route" type="geojson" data={berlinViennaRoute}>
+              <Layer
+                id="route"
+                type="line"
+                source="route"
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "#f26444",
+                  "line-width": 3,
+                  "line-dasharray": [2, 2],
+                }}
+              />
+            </Source>
+          ) : (
+            <Source
               id="route"
-              type="line"
-              source="route"
-              layout={{
-                "line-join": "round",
-                "line-cap": "round",
+              type="geojson"
+              data={{
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "LineString",
+                  coordinates: coordinates.map((coord) => [
+                    coord.longitude,
+                    coord.latitude,
+                  ]),
+                },
               }}
-              paint={{
-                "line-color": "#f26444",
-                "line-width": 3,
-                "line-dasharray": [2, 2],
-              }}
-            />
-          </Source>
+            >
+              <Layer
+                id="route"
+                type="line"
+                source="route"
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "#f26444",
+                  "line-width": 3,
+                  "line-dasharray": [2, 2],
+                }}
+              />
+            </Source>
+          )}
         </React.Fragment>
       );
     }
@@ -343,7 +362,15 @@ export const MapContainer = () => {
             latitude={coordinates[0].latitude}
             longitude={coordinates[0].longitude}
           >
-            <img src={place1} alt="Marker" style={{ width: '40px', height: '40px', transform: "translate(0%, -25%)", }} />
+            <img
+              src={place1}
+              alt="Marker"
+              style={{
+                width: "40px",
+                height: "40px",
+                transform: "translate(0%, -25%)",
+              }}
+            />
           </Marker>
           <Popup
             latitude={coordinates[0].latitude}
@@ -357,13 +384,16 @@ export const MapContainer = () => {
           </Popup>
         </React.Fragment>
       );
-    } else if (coordinates?.length >=2 && mode === "timeTable") {
+    } else if (coordinates?.length >= 2 && mode === "timeTable") {
       const sourceData = {
         type: "Feature",
         properties: {},
         geometry: {
-            type: "LineString",
-            coordinates: coordinates.map(coord => [coord.longitude, coord.latitude]),
+          type: "LineString",
+          coordinates: coordinates.map((coord) => [
+            coord.longitude,
+            coord.latitude,
+          ]),
         },
       };
 
@@ -395,47 +425,67 @@ export const MapContainer = () => {
             <div data-city={coordinates[0].name}>{coordinates[0].name}</div>
           </Popup>
 
-            <Marker
-              latitude={coordinates[coordinates.length-1].latitude}
-              longitude={coordinates[coordinates.length-1].longitude}
-              color="#87ced6"
-            >
-             <img src={place2} alt="Dest Marker" style={{ width: '40px', height: '40px', transform: "translate(0%, -25%)", }} />   
-                </Marker>
+          <Marker
+            latitude={coordinates[coordinates.length - 1].latitude}
+            longitude={coordinates[coordinates.length - 1].longitude}
+            color="#87ced6"
+          >
+            <img
+              src={place2}
+              alt="Dest Marker"
+              style={{
+                width: "40px",
+                height: "40px",
+                transform: "translate(0%, -25%)",
+              }}
+            />
+          </Marker>
 
-            <Popup
-              latitude={coordinates[coordinates.length-1].latitude}
-              longitude={coordinates[coordinates.length-1].longitude}
-              closeButton={false}
-              closeOnClick={false}
-              anchor="bottom-left"
-              className="popup-no-background2"
-            >
-              <div data-city={coordinates[coordinates.length-1].name}>{coordinates[coordinates.length-1].name}</div>
-            </Popup>
+          <Popup
+            latitude={coordinates[coordinates.length - 1].latitude}
+            longitude={coordinates[coordinates.length - 1].longitude}
+            closeButton={false}
+            closeOnClick={false}
+            anchor="bottom-left"
+            className="popup-no-background2"
+          >
+            <div data-city={coordinates[coordinates.length - 1].name}>
+              {coordinates[coordinates.length - 1].name}
+            </div>
+          </Popup>
 
-            <>
+          <>
             {Object.entries(coordinates).map(([key, value], index) => (
               <div key={`markerpopupdiv-${index}-${key}`}>
-                 {index !== 0 && index !=coordinates.length-1  && (
+                {index !== 0 && index != coordinates.length - 1 && (
                   <>
                     <Marker
                       key={`marker-${index}`}
                       latitude={value.latitude}
                       longitude={value.longitude}
-                      onClick={() => handleMarkerClick(value.latitude, value.longitude, value.name)}
+                      onClick={() =>
+                        handleMarkerClick(
+                          value.latitude,
+                          value.longitude,
+                          value.name
+                        )
+                      }
                     >
                       <img
                         src={place2}
                         alt="Marker"
-                        style={{ width: '40px', height: '40px', transform: 'translate(0%, -25%)', cursor: 'pointer' }}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          transform: "translate(0%, -25%)",
+                          cursor: "pointer",
+                        }}
                       />
                     </Marker>
                   </>
                 )}
               </div>
             ))}
-            
           </>
 
           <Source id={`route-timetable`} type="geojson" data={sourceData}>
