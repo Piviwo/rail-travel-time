@@ -29,11 +29,3 @@ Make sure you have the following installed on your system:
 
 - [Node.js](https://nodejs.org/) (version 14 or later)
 - [npm](https://www.npmjs.com/)
-
-## To-Dо List
-
-1. Improve map visualization
-
-2. Add a timetable mode with DB API (in progress)
-
-3. Create Adaptive Design
