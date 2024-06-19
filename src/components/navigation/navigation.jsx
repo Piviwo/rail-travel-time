@@ -3,11 +3,10 @@ import { SideBar } from "./components";
 import "./navigation.css";
 
 export const Navigation = () => {
-
   return (
     <>
-      <Header/>
-      <SideBar/>
+      <Header sidebar={true} />
+      <SideBar />
     </>
   );
 };
