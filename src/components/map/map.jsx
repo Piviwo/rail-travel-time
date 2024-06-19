@@ -17,6 +17,7 @@ import budapestViennaRoute from "../../../data/railroadBudapestVienna.json";
 import citiesData from "../../data/RailTimeTable.json";
 import place1 from "../../assets/place_1.svg";
 import place2 from "../../assets/place_2.svg";
+import place3 from "../../assets/place_3.svg";
 
 export const MapContainer = () => {
   const coordinates = useSelector(getCoordinates);
@@ -450,7 +451,7 @@ export const MapContainer = () => {
             color="#87ced6"
           >
             <img
-              src={place2}
+              src={place3}
               alt="Dest Marker"
               style={{
                 width: "40px",
@@ -466,7 +467,7 @@ export const MapContainer = () => {
             closeButton={false}
             closeOnClick={false}
             anchor="bottom-left"
-            className="popup-no-background2"
+            className="popup-no-background2 blue"
           >
             <div data-city={coordinates[coordinates.length - 1].name}>
               {coordinates[coordinates.length - 1].name}
