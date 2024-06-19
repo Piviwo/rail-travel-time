@@ -67,17 +67,17 @@ export const Timetable = () => {
         ])
       );
     } catch (err) {
-      console.error("Failed to fetch coordinates", err);
+      console.log(`Sorry, we cannot show you ${stationName} on our map, because it is not a DB train station.`);
     }
   };
 
  
  
 
-  const fetchDestinationCoordinates = async (trainPath) => {
+  const fetchDestinationCoordinates = async (trainPath, index) => {
     try {
-        const index = findIndexByName(stationName);
-        const coordData = index ? getCoordinates(index) : null;
+        const id = findIndexByName(stationName);
+        const coordData = id ? getCoordinates(id) : null;
         const coordinates = [
             {
                 name: stationName,
@@ -85,25 +85,32 @@ export const Timetable = () => {
                 longitude: coordData?.lon,
             },
         ];
-
+        const lenPath = trainPath.length;
+        let i = 0;
         for (const path of trainPath) {
+          i=i+1;
             try {
                 const indexdest = findDestIndexByName(path);
-                const coordDatadest = getCoordinates(indexdest);
-                coordinates.push({
-                    name: path,
-                    latitude: coordDatadest.lat,
-                    longitude: coordDatadest.lon,
-                });
-            } catch (err) {
-                console.error(`Error fetching coordinates for ${path}:`, err);
-            }
+                try{
+                  const coordDatadest = getCoordinates(indexdest);
+                  coordinates.push({
+                      name: path,
+                      latitude: coordDatadest.lat,
+                      longitude: coordDatadest.lon,
+                  });
+                } catch (err) {
+                  if(i==lenPath){
+                    coordinates[0].name = stationName +" is the last stop in Germany on this trip"
+                    console.log(`Sorry, we cannot show you ${path} on our map, because it is not a DB train station.`, index);
+                  }
+                  // hier etwas machen, wenn es die letzte eintrag von trainPath ist, dann schreibe sowas "Sorry, ${path} could not be found because it is not a DB train stration."
+              }
+                
+            } catch (err) {}
         }
 
         dispatch(setCoordinates(coordinates));
-    } catch (err) {
-        console.error("Failed to fetch coordinates", err);
-    }
+    } catch (err) {}
 };
 
 
@@ -123,7 +130,7 @@ export const Timetable = () => {
   };
 
   const handleRowClick = (entry, index) => {
-    fetchDestinationCoordinates(entry.trainPath);
+    fetchDestinationCoordinates(entry.trainPath, index);
     setSelectedRow(index);
   };
 
